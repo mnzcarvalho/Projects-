@@ -1,23 +1,42 @@
 package sistemaLoja.app;
 
 import sistemaLoja.enums.CategoriaProduto;
-import sistemaLoja.model.Cliente;
-import sistemaLoja.model.Pedido;
-import sistemaLoja.model.Produto;
+import sistemaLoja.exception.EstoqueInsuficienteException;
+import sistemaLoja.model.*;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        Produto perfume = new Produto("Essência de Luxo", 250.0, 10, CategoriaProduto.PERFUME);
-        Produto joia = new Produto("Colar de Prata", 500.0, 5, CategoriaProduto.JOIA);
+        try {
+            // Produtos e estoque
+            Produto perfume = new Produto("Essência de Luxo", 250.0, 10, CategoriaProduto.PERFUME);
+            Produto joia = new Produto("Colar de Prata", 500.0, 5, CategoriaProduto.JOIA);
 
-        Cliente cliente = new Cliente("Maria Silva");
+            Estoque estoque = new Estoque();
+            estoque.adicionarProduto(perfume, 10);
+            estoque.adicionarProduto(joia, 5);
 
-        Pedido pedido = new Pedido(cliente);
-        pedido.adicionarItem(perfume, 2);
-        pedido.adicionarItem(joia);
+            // Cliente e pedido
+            Cliente cliente = new Cliente("Maria Silva");
+            Pedido pedido = new Pedido(cliente);
 
-        System.out.println(pedido.gerarResumo());
+            estoque.reduzirEstoque(perfume, 2);
+            pedido.adicionarItem(perfume, 2);
+
+            estoque.reduzirEstoque(joia, 1);
+            pedido.adicionarItem(joia, 1);
+
+            // Escolher tipo de entrega
+            Entrega entrega = new EntregaExpressa("Rua das Flores, 123 - São Paulo");
+            pedido.setEntrega(entrega);
+
+            // Mostrar resultado
+            System.out.println(pedido.gerarResumo());
+            estoque.listarEstoque();
+
+        } catch (EstoqueInsuficienteException e) {
+            System.err.println("Erro: " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("Erro inesperado: " + e.getMessage());
+        }
     }
 }
