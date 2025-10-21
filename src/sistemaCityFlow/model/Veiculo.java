@@ -17,7 +17,7 @@ public abstract class Veiculo implements Runnable {
         this.horaInicio = LocalTime.now();
     }
 
-    public abstract void mover();
+    public abstract void mover(Cruzamento cruzamento);
 
     public void parar(){
         this.estado = EstadoVeiculo.PARADO;
@@ -28,8 +28,12 @@ public abstract class Veiculo implements Runnable {
         return placa;
     }
 
+    public double getVelocidade() {
+        return velocidade;
+    }
+
     @Override
     public void run(){
-        mover();
+
     }
 }

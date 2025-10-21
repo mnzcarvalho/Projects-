@@ -7,9 +7,11 @@ public class Onibus extends Veiculo{
         this.velocidade = 40;
     }
 
+
+
     @Override
-    public void mover() {
+    public void mover(Cruzamento cruzamento) {
         this.estado = EstadoVeiculo.MOVENDO;
-        System.out.println("Ônibus [" + placa + "] está trafegando a " + velocidade + " km/h");
+        cruzamento.tentarAtravessar(this);
     }
 }

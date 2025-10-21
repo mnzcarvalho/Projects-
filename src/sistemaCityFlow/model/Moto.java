@@ -8,8 +8,8 @@ public class Moto extends Veiculo{
     }
 
     @Override
-    public void mover() {
+    public void mover(Cruzamento cruzamento) {
         this.estado = EstadoVeiculo.MOVENDO;
-        System.out.println("Moto [" + placa + "] está trafegando a " + velocidade + " km/h");
+        cruzamento.tentarAtravessar(this);
     }
 }
