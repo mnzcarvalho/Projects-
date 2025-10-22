@@ -1,6 +1,7 @@
 package sistemaCityFlow.app;
 
 import sistemaCityFlow.model.*;
+import sistemaCityFlow.service.LogService;
 import sistemaCityFlow.service.TrafegoService;
 
 public class Main {
@@ -17,9 +18,15 @@ public class Main {
 
         service.iniciarSimulacao();
 
-        Thread.sleep(200000);
+        Thread.sleep(25000);
 
         System.out.println("===Encerrando simulação===");
         service.pararSimulacao();
+
+        Thread.sleep(1000);
+
+        LogService log = service.getLogService();
+        System.out.println("----- Caminho do log: " + log.getLogPath() + " -----");
+        System.out.println(log.lerTodos());
     }
 }

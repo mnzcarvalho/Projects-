@@ -1,0 +1,16 @@
+2025-10-22 17:47:49 [INFO] Cruzamento C-1 criado com semáforo Central.
+2025-10-22 17:47:49 [INFO] Registrar veículo: Carro [ABC-1234]
+2025-10-22 17:47:49 [INFO] Registrar veículo: Moto [XYZ-9876]
+2025-10-22 17:47:49 [INFO] Registrar veículo: Onibus [BUS-5544]
+2025-10-22 17:47:49 [INFO] Semáforo iniciado: Central
+2025-10-22 17:47:50 [INFO] Moto[XYZ-9876] atravessou C-1. Combustível restante: 5.0
+2025-10-22 17:47:50 [INFO] Carro[ABC-1234] atravessou C-1. Combustível restante: 4.0
+2025-10-22 17:47:51 [INFO] Onibus[BUS-5544] atravessou C-1. Combustível restante: 5.0
+2025-10-22 17:47:53 [INFO] Moto[XYZ-9876] atravessou C-1. Combustível restante: 5.0
+2025-10-22 17:48:14 [INFO] Simulação parada.
+2025-10-22 17:48:14 [ERROR] Erro genérico: sistemaCityFlow.exception.SemafotoForaDeServicoException: Semáforo Central fora de serviço
+2025-10-22 17:48:15 [ERROR] Erro genérico: sistemaCityFlow.exception.SemafotoForaDeServicoException: Semáforo Central fora de serviço
+2025-10-22 17:48:15 [INFO] Carro [ABC-1234] encerrou suas travessias.
+2025-10-22 17:48:15 [ERROR] Erro genérico: sistemaCityFlow.exception.SemafotoForaDeServicoException: Semáforo Central fora de serviço
+2025-10-22 17:48:15 [INFO] Onibus [BUS-5544] encerrou suas travessias.
+2025-10-22 17:48:15 [INFO] Moto [XYZ-9876] encerrou suas travessias.

@@ -1,5 +1,7 @@
 package sistemaCityFlow.model;
 
+import sistemaCityFlow.exception.SemafotoForaDeServicoException;
+
 public class Cruzamento {
 
     private final String id;
@@ -10,23 +12,20 @@ public class Cruzamento {
         this.semaforo = semaforo;
     }
 
-    public void tentarAtravessar(Veiculo v){
+    public void tentarAtravessar(Veiculo v) {
         try {
-            System.out.println(v.getClass().getSimpleName() + " ["+ v.getPlaca() + "] chegando ao cruzamento " + id + " (semáforo: " + semaforo.getEstado() + ")");
-
+            System.out.println(v.getClass().getSimpleName() + " [" + v.getPlaca() + "] chegando ao cruzamento " + id + " (semáforo: " + semaforo.getEstado() + ")");
             semaforo.esperarVerde();
 
-            System.out.println(v.getClass().getSimpleName() + " ["+ v.getPlaca() + "] atravessando o cruzamento " + id + "...");
-
+            System.out.println(v.getClass().getSimpleName() + " [" + v.getPlaca() + "] atravessando o cruzamento " + id + "...");
             long tempoTravessia = Math.max(200, (long) (1000 * (60.0 / v.getVelocidade())));
             Thread.sleep(tempoTravessia);
-
             System.out.println(v.getClass().getSimpleName() + " [" + v.getPlaca() + "] finalizou travessia em " + tempoTravessia + "ms.");
-
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             System.out.println("Veículo " + v.getPlaca() + " foi interrompido enquanto esperava no cruzamento " + id);
-
+        } catch (SemafotoForaDeServicoException e) {
+            throw new RuntimeException(e);
         }
     }
 

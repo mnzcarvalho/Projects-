@@ -1,5 +1,7 @@
 package sistemaCityFlow.model;
 
+import sistemaCityFlow.exception.SemafotoForaDeServicoException;
+
 public class Semaforo implements Runnable {
     private EstadoSemaforo estado;
     private final String local;
@@ -23,13 +25,16 @@ public class Semaforo implements Runnable {
     private synchronized void setEstado(EstadoSemaforo novo) {
         this.estado = novo;
         System.out.println("[Semáforo " + local + "] agora " + novo);
-        if (novo == EstadoSemaforo.VERDE){
+        if (novo == EstadoSemaforo.VERDE) {
             notifyAll();
         }
     }
 
-    public synchronized void esperarVerde() throws InterruptedException{
-        while (estado != EstadoSemaforo.VERDE){
+    public synchronized void esperarVerde() throws InterruptedException, SemafotoForaDeServicoException {
+        while (estado != EstadoSemaforo.VERDE) {
+            if (!ativo) {
+                throw new SemafotoForaDeServicoException(local);
+            }
             wait();
         }
     }
@@ -51,8 +56,11 @@ public class Semaforo implements Runnable {
         }
     }
 
-    public void pararSemaforo(){
+    public void pararSemaforo() {
         ativo = false;
+        synchronized (this) {
+            notifyAll();
+        }
     }
 
     public String getLocal() {
