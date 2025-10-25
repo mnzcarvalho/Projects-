@@ -127,6 +127,6 @@ public class Loja extends BaseEntity{
 
     @Override
     public String toString() {
-        return "Loja: " + this.nome + " id: " + this.getId();
+        return "Loja: " + this.nome;
     }
 }

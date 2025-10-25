@@ -2,14 +2,14 @@ package miniifood.entities;
 
 import java.time.LocalDateTime;
 
-public class CategoriaTipoProduto extends BaseEntity{
+public class StatusPedido extends BaseEntity{
     private String nome;
 
-    public CategoriaTipoProduto(int id, LocalDateTime dataCriacao, LocalDateTime dataAtualizacao) {
+    public StatusPedido(int id, LocalDateTime dataCriacao, LocalDateTime dataAtualizacao) {
         super(id, dataCriacao, dataAtualizacao);
     }
 
-    public CategoriaTipoProduto(int id, LocalDateTime dataCriacao, LocalDateTime dataAtualizacao, String nome) {
+    public StatusPedido(int id, LocalDateTime dataCriacao, LocalDateTime dataAtualizacao, String nome) {
         super(id, dataCriacao, dataAtualizacao);
         this.nome = nome;
     }
@@ -24,8 +24,8 @@ public class CategoriaTipoProduto extends BaseEntity{
 
     @Override
     public String toString() {
-        return "Tipo do Produto: " + this.nome;
+        return "StatusPedido{" +
+                "nome='" + nome + '\'' +
+                '}';
     }
-
-
 }

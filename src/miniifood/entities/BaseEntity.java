@@ -4,9 +4,9 @@ import java.time.LocalDateTime;
 
 public abstract class BaseEntity {
 private int id;
-protected LocalDateTime dataCriacao;
+private LocalDateTime dataCriacao;
 private LocalDateTime dataAtualizacao;
-protected boolean ativo;
+private boolean ativo;
 
     public BaseEntity(int id, LocalDateTime dataCriacao, LocalDateTime dataAtualizacao) {
         this.id = id;
