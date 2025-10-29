@@ -1,0 +1,175 @@
+idleGamer
+
+===player===
+
+level 1 ~ 100
+3 points per lvl
+change class lvl 30
+master classe change lvl 70
+class change = warrior(str), mage(int), archer(dex)
+master classe change = Warrior to Berserk, Mage to Elementalist, Archer to Arcane Archer
+skill tree = each class have 1 active skill and passive skills in skill tree (beginner class not included)
+
+===status===
+
+strength - base 5 - physical damage
+
+agility - base 5 -  vel atk (max 2 attacks per second) (-0.01 atk per second per points)
+
+intelligence - base 5 - spell damage
+
+vitality - base 5 - increased HP - 1 hp per point
+
+
+===equipment===
+
+set - helmet, armor, gloves, pants e boots
+
+weapons -1h sword (beginner), 2h axe(Warrior), Staff(Mage), Bow(Archers) 
+
+accessories - left ring, right ring, necklace
+
+
+
+===Status Equipment===
+
+Equip Rarity
+
+normal - roll 1 status line
+magic - roll 2 status line
+rare - roll 3 status line
+mythic - roll 3 perfect status line
+
+equips can have 3 status per piece
+Equipment can roll the same attribute multiple times
+
+possible status for all equipment:
+
+lvl 1 - 30
+t3 - strength 1 - 10
+t3 - dexterity 1 - 10
+t3 - intelligence 1 - 10
+t3 - vitality 1 - 10
+
+lvl 30 - 70
+t2 - strength 1 - 40
+t2 - dexterity 1 - 40
+t2 - intelligence 1 - 40
+t2 - vitality 1 - 40
+
+lvl 70 - 100
+t1 - strength 20 - 70
+t1 - dexterity 20 - 70
+t1 - intelligence 20 - 70
+t1 - vitality 20 - 70
+
+===Weapons Status===
+Weapons is fix the 2 attributes, only randomize a roll
+
+1h Swords:
+-physical damage 1 - 10
+-attack per second 1 ~ 2
+
+2h Axes:
+-physical damage - 10 - 30
+-attack per second - 1 ~ 2
+
+Staff:
+-Spell damage - 10 - 30
+-attack per second - 1 ~ 2
+
+Bows:
+-physical damage - 10 - 20
+-attack per second - 1 ~ 1.5
+
+
+===skill tree===
+reset skill tree = (hero lvl * 50 gold)
+
+warrior tree - 1 active skill an 4 passives skills
+mage tree - 1 active skill an 4 passives skills
+archer tree - 1 active skill an 4 passives skills
+
+berserker tree - 1 active skill an 3 passives skills
+elementalist tree - 1 active skill an 3 passives skills
+arcane archer - 1 active skill an 3 passives skills
+
+
+===PlayerStatus===
+- status base + status equipment + skill tree
+===monster===
+Monster xp:
+scale 1 to 100 when reference of table 'PlayerEXP' and 'MonsterTips'
+
+Monster drop change:
+ - normal itens 5%
+ - magic itens 3%
+ - rare itens 1%
+
+Monster gold:
+scale 1 to 100 when reference of table 'PlayerEXP' and 'MonsterTips'
+
+MonsterStatus:
+ scale with reference of 'PlayerStatus'
+
+monster tips:
+1 to 10: rat 1 ~ 3, gnome 4 ~ 10
+10 to 20: goblin 10 ~ 15, troll 16 ~ 20
+20 to 30: gargoyle 20 ~ 25, demon 25 ~ 30
+30 to 40: orc 30 ~ 35, minotaur 35 ~ 40
+40 to 50: wraith 40 ~ 45, cyclops 45 ~ 50
+50 to 60: harpy 50 ~ 55, chimera 55 ~ 60
+60 to 70: griffin 60 ~ 65, wyvern 65 ~ 70
+70 to 80: basilisk 70 ~ 75, hydra 75 ~ 80
+80 to 90: golem 80 ~ 85, dragon 85 ~ 90
+90 to 100: lich 90 ~ 95, ancient dragon 95 ~ 100
+
+BossTips:
+Black Dragon lvl 30
+Ancient Golen lvl 50
+Ancestral Guardian lvl 70
+The Lich lvl 100
+
+
+===dungeons=== 
+lvl: 10 ~ 30, 30 ~ 70, 70 ~ 100
+monster 3x xp
+final boss drop a fragment of eternal shard (1/10)
+
+===dungeon boss===
+ boss xp
+ boss drop chance
+ boss gold
+ 
+
+===Player===
+playerUI:
+-inventoryUI 30 spaces
+-stashUI 100 spaces
+-attributesUI
+
+PlayerEXP:
+1 - 10 scale 1000 xp
+10 - 20 scale 2500 xp
+20 - 30 scale 4000 xp
+30 - 50 scale 10000 xp
+50 - 70 scale 20000 xp
+70 - 100 scale 40000 xp
+
+===rebirth=== 
+after player reach lvl 100, can rebirth
+return lvl 1 and give 1 rebirth points
+
+rebirth points can be spend in 'rebirth shop'
+
+===gold shop===
+NPC merchant
+sell normal itens after clear dungeon lvl 10 for the first time
+can sell magic itens after clear dungeon lvl 30 for the first time
+can sell rare+ itens after clear dungeon lvl 70 for the first time
+merchant offer 10 itens in total - refresh in 1 hour
+
+===items===
+
+eternal shard = max roll in a random attribute
+max of 1 eternal shard per piece
