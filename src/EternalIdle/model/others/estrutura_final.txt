@@ -1,0 +1,87 @@
+EternalIdle/
+├── .idea
+├── app
+│   └── Main.java
+├── bosses
+│   ├── Boss.java
+│   ├── BossManager.java
+│   └── BossType.java
+├── crafting
+│   ├── CraftingMaterial.java
+│   ├── CraftingStation.java
+│   ├── CraftingSystem.java
+│   ├── MaterialType.java
+│   ├── Recipe.java
+│   └── RecipeType.java
+├── entity
+│   ├── Monster.java
+│   ├── MonsterFactory.java
+│   └── Player.java
+├── events
+│   ├── EventType.java
+│   ├── GameEvent.java
+│   └── TitleSystem.java
+├── inventory
+│   ├── Inventory.java
+│   ├── StashManager.java
+│   ├── StashTab.java
+│   └── TabType.java
+├── items
+│   ├── consumable
+│   │   └── Potion.java
+│   ├── currency
+│   │   └── Gold.java
+│   ├── equipment
+│   │   ├── Armor.java
+│   │   ├── Equipment.java
+│   │   └── Weapon.java
+│   ├── material
+│   │   └── Core.java
+│   │   └── Essence.java
+│   │   └── Fragment.java
+│   └── Item.java
+│   └── ItemRarity.java
+├── others
+│   ├── estrutura_final.txt
+│   └── EternalIdle.txt
+├── persistence
+│   ├── GameSave.java
+│   ├── Saveable.java
+│   └── SaveManager.java
+├── rewards
+│   ├── BossReward.java
+│   ├── EventManager.java
+│   └── EventReward.java
+├── shop
+│   ├── Shop.java
+│   ├── ShopCategory.java
+│   └── ShopItem.java
+├── skills
+│   ├── Skill.java
+│   ├── SkillNode.java
+│   ├── SkillTree.java
+│   └── SkillType.java
+├── statistics
+│   ├── GameStatistics.java
+│   ├── PlayerStatistics.java
+│   └── StatTracker.java
+├── status
+│   └── PlayerAttributes.java
+├── systems
+│   ├── BossManager.java
+│   ├── CraftingSystem.java
+│   ├── DropSystem.java
+│   ├── EquipmentManager.java
+│   ├── GameManager.java
+│   ├── IdleCombatSystem.java
+│   ├── ShopSystem.java
+│   └── StashSystem.java
+├── ui
+│   └── Main.java
+├── util
+│   ├── FileHandler.java
+│   └── JSONConverter.java
+├── world
+│   └── Version.java
+├── CHANGELOG.md
+├── pom.xml
