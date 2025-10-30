@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="eternalidle.controller.GameController"
+      spacing="15"
+      style="-fx-background-color: #2b2b2b; -fx-padding: 20;">
+
+    <!-- HEADER - STATUS DO JOGADOR -->
+    <HBox spacing="30" alignment="CENTER_LEFT">
+        <!-- Informações do Jogador -->
+        <VBox spacing="8">
+            <Label fx:id="playerNameLabel" text="Player"
+                   style="-fx-text-fill: white; -fx-font-size: 20; -fx-font-weight: bold;"/>
+            <Label fx:id="playerLevelLabel" text="Level 1"
+                   style="-fx-text-fill: #ffd700; -fx-font-size: 16; -fx-font-weight: bold;"/>
+        </VBox>
+
+        <!-- Ouro -->
+        <VBox spacing="5">
+            <Label text="OURO" style="-fx-text-fill: #95a5a6; -fx-font-size: 12;"/>
+            <Label fx:id="goldLabel" text="0 💰"
+                   style="-fx-text-fill: #ffd700; -fx-font-size: 16; -fx-font-weight: bold;"/>
+        </VBox>
+
+        <!-- Monstros Derrotados -->
+        <VBox spacing="5">
+            <Label text="MONSTROS" style="-fx-text-fill: #95a5a6; -fx-font-size: 12;"/>
+            <Label fx:id="monstersDefeatedLabel" text="0 defeated"
+                   style="-fx-text-fill: #ff6b6b; -fx-font-size: 16; -fx-font-weight: bold;"/>
+        </VBox>
+
+        <!-- DPS do Jogador -->
+        <VBox spacing="5">
+            <Label text="DPS" style="-fx-text-fill: #95a5a6; -fx-font-size: 12;"/>
+            <Label fx:id="dpsLabel" text="0 ⚡"
+                   style="-fx-text-fill: #3498db; -fx-font-size: 16; -fx-font-weight: bold;"/>
+        </VBox>
+
+        <!-- Tier Atual -->
+        <VBox spacing="5">
+            <Label text="TIER" style="-fx-text-fill: #95a5a6; -fx-font-size: 12;"/>
+            <Label fx:id="tierLabel" text="1 🎯"
+                   style="-fx-text-fill: #9b59b6; -fx-font-size: 16; -fx-font-weight: bold;"/>
+        </VBox>
+
+        <!-- Experiência -->
+        <VBox spacing="5" prefWidth="200">
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="EXPERIÊNCIA" style="-fx-text-fill: #95a5a6; -fx-font-size: 12;"/>
+                <Label fx:id="expLabel" text="0/100 EXP"
+                       style="-fx-text-fill: #00ff00; -fx-font-size: 12;"/>
+            </HBox>
+            <ProgressBar fx:id="expProgressBar" prefWidth="200" progress="0"
+                         style="-fx-accent: #00ff00;"/>
+        </VBox>
+    </HBox>
+
+    <!-- ÁREA PRINCIPAL -->
+    <HBox spacing="20" VBox.vgrow="ALWAYS">
+        <!-- PAINEL DE COMBATE (Esquerda) -->
+        <VBox spacing="20" prefWidth="400" VBox.vgrow="ALWAYS">
+            <Label text="🎯 COMBATE ATUAL"
+                   style="-fx-text-fill: white; -fx-font-size: 18; -fx-font-weight: bold;"/>
+
+            <VBox spacing="15" alignment="CENTER"
+                  style="-fx-background-color: #3c3c3c; -fx-padding: 20; -fx-background-radius: 10;">
+
+                <!-- Barra de Vida do Monstro -->
+                <VBox spacing="5" alignment="CENTER" prefWidth="300">
+                    <Label fx:id="currentMonsterLabel" text="Aguardando monstro..."
+                           style="-fx-text-fill: #ff6b6b; -fx-font-size: 22; -fx-font-weight: bold;"/>
+                    <ProgressBar fx:id="monsterHealthBar" prefWidth="300" progress="1.0"
+                                 style="-fx-accent: #e74c3c; -fx-pref-height: 20;"/>
+                    <Label fx:id="monsterHealthLabel" text="???/??? HP"
+                           style="-fx-text-fill: white; -fx-font-size: 14;"/>
+                </VBox>
+
+                <Button fx:id="attackButton" text="⚔️ ATAQUE MANUAL"
+                        style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14; -fx-pref-width: 180; -fx-pref-height: 40;"/>
+            </VBox>
+
+            <!-- LOG DE COMBATE -->
+            <VBox spacing="10" VBox.vgrow="ALWAYS">
+                <Label text="📜 LOG DE COMBATE"
+                       style="-fx-text-fill: white; -fx-font-size: 16; -fx-font-weight: bold;"/>
+                <TextArea fx:id="combatLog" prefHeight="200"
+                          style="-fx-control-inner-background: #1a1a1a; -fx-text-fill: #00ff00; -fx-font-family: 'Monospace';"/>
+            </VBox>
+        </VBox>
+
+        <!-- PAINEL DE AÇÕES (Direita) -->
+        <VBox spacing="12" prefWidth="250">
+            <Label text="🎮 AÇÕES"
+                   style="-fx-text-fill: white; -fx-font-size: 18; -fx-font-weight: bold;"/>
+
+            <Button fx:id="inventoryButton" text="🎒 INVENTÁRIO"
+                    style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold; -fx-pref-height: 45;"/>
+
+            <Button fx:id="skillsButton" text="🌳 HABILIDADES"
+                    style="-fx-background-color: #9b59b6; -fx-text-fill: white; -fx-font-weight: bold; -fx-pref-height: 45;"/>
+
+            <Button fx:id="shopButton" text="🏪 LOJA"
+                    style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: bold; -fx-pref-height: 45;"/>
+
+            <Button fx:id="stashButton" text="🏠 STASH"
+                    style="-fx-background-color: #e67e22; -fx-text-fill: white; -fx-font-weight: bold; -fx-pref-height: 45;"/>
+
+            <Button fx:id="craftingButton" text="🔨 CRAFTING"
+                    style="-fx-background-color: #f39c12; -fx-text-fill: white; -fx-font-weight: bold; -fx-pref-height: 45;"/>
+
+            <Button fx:id="bossesButton" text="🐉 BOSSES"
+                    style="-fx-background-color: #c0392b; -fx-text-fill: white; -fx-font-weight: bold; -fx-pref-height: 45;"/>
+
+            <Separator prefWidth="200"/>
+
+            <Button fx:id="saveButton" text="💾 SALVAR JOGO"
+                    style="-fx-background-color: #2c3e50; -fx-text-fill: white; -fx-font-weight: bold; -fx-pref-height: 40;"/>
+        </VBox>
+    </HBox>
+</VBox>

@@ -1,0 +1,290 @@
+/* styles.css - Eternal Idle Theme */
+
+/* ===== VARIÁVEIS DE CORES ===== */
+.root {
+    -fx-dark-bg: #2b2b2b;
+    -fx-darker-bg: #1e1e1e;
+    -fx-panel-bg: #3c3c3c;
+    -fx-text-light: #ffffff;
+    -fx-text-muted: #95a5a6;
+    -fx-accent-blue: #3498db;
+    -fx-accent-green: #27ae60;
+    -fx-accent-purple: #9b59b6;
+    -fx-accent-orange: #e67e22;
+    -fx-accent-yellow: #f39c12;
+    -fx-accent-red: #e74c3c;
+    -fx-accent-gold: #ffd700;
+}
+
+/* ===== ESTILOS GERAIS ===== */
+.background {
+    -fx-background-color: -fx-dark-bg;
+}
+
+/* ===== LABELS ===== */
+.label {
+    -fx-text-fill: -fx-text-light;
+}
+
+.header-label {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -fx-text-light;
+}
+
+.stats-label {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.gold-text {
+    -fx-text-fill: -fx-accent-gold;
+    -fx-font-weight: bold;
+}
+
+.exp-text {
+    -fx-text-fill: -fx-accent-green;
+    -fx-font-weight: bold;
+}
+
+.dps-text {
+    -fx-text-fill: -fx-accent-blue;
+    -fx-font-weight: bold;
+}
+
+.tier-text {
+    -fx-text-fill: -fx-accent-purple;
+    -fx-font-weight: bold;
+}
+
+.monster-text {
+    -fx-text-fill: -fx-accent-red;
+    -fx-font-weight: bold;
+}
+
+/* ===== BOTÕES ===== */
+.button {
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 6, 0, 0, 3);
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-pref-height: 45px;
+    -fx-transition: all 0.2s;
+}
+
+.button:hover {
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 0, 4);
+}
+
+.button:pressed {
+    -fx-scale-x: 0.98;
+    -fx-scale-y: 0.98;
+}
+
+/* Botões coloridos por função */
+.btn-inventory {
+    -fx-background-color: -fx-accent-blue;
+}
+
+.btn-skills {
+    -fx-background-color: -fx-accent-purple;
+}
+
+.btn-shop {
+    -fx-background-color: -fx-accent-green;
+}
+
+.btn-stash {
+    -fx-background-color: -fx-accent-orange;
+}
+
+.btn-crafting {
+    -fx-background-color: -fx-accent-yellow;
+}
+
+.btn-bosses {
+    -fx-background-color: -fx-accent-red;
+}
+
+.btn-save {
+    -fx-background-color: #2c3e50;
+}
+
+.btn-attack {
+    -fx-background-color: -fx-accent-red;
+    -fx-pref-width: 180px;
+    -fx-pref-height: 40px;
+}
+
+/* ===== BARRAS DE PROGRESSO ===== */
+.progress-bar {
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-pref-height: 20px;
+}
+
+.progress-bar .track {
+    -fx-background-color: -fx-darker-bg;
+    -fx-background-radius: 10;
+}
+
+.progress-bar .bar {
+    -fx-background-radius: 10;
+    -fx-padding: 5px;
+}
+
+/* Cores específicas para barras */
+.exp-bar .bar {
+    -fx-background-color: linear-gradient(to right, #27ae60, #2ecc71);
+}
+
+.monster-health-bar .bar {
+    -fx-background-color: linear-gradient(to right, #e74c3c, #c0392b);
+}
+
+.monster-health-bar-low .bar {
+    -fx-background-color: linear-gradient(to right, #e74c3c, #ff6b6b);
+}
+
+.monster-health-bar-medium .bar {
+    -fx-background-color: linear-gradient(to right, #f39c12, #e67e22);
+}
+
+.monster-health-bar-high .bar {
+    -fx-background-color: linear-gradient(to right, #2ecc71, #27ae60);
+}
+
+/* ===== PAINÉIS ===== */
+.panel {
+    -fx-background-color: -fx-panel-bg;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-padding: 20px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 10, 0, 0, 3);
+}
+
+.combat-panel {
+    -fx-background-color: -fx-panel-bg;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-padding: 20px;
+    -fx-alignment: center;
+}
+
+/* ===== ÁREA DE TEXTO/LOG ===== */
+.text-area {
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: #444;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.2), 5, 0, 0, 2);
+}
+
+.text-area .content {
+    -fx-background-color: -fx-darker-bg;
+    -fx-background-radius: 8;
+}
+
+.text-area .scroll-pane {
+    -fx-background-color: transparent;
+}
+
+.text-area .scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
+.text-area .scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+}
+
+.text-area .scroll-bar:vertical .thumb {
+    -fx-background-color: #444;
+    -fx-background-radius: 4;
+}
+
+/* ===== TOOLTIPS ===== */
+.tooltip {
+    -fx-background-color: rgba(30, 30, 30, 0.95);
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-border-color: #444;
+    -fx-padding: 8px;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.5), 10, 0, 0, 3);
+}
+
+/* ===== SEPARADORES ===== */
+.separator {
+    -fx-background-color: #444;
+}
+
+/* ===== LAYOUT ===== */
+.stats-container {
+    -fx-spacing: 30px;
+    -fx-alignment: center-left;
+}
+
+.combat-container {
+    -fx-spacing: 20px;
+    -fx-alignment: center;
+}
+
+.actions-container {
+    -fx-spacing: 12px;
+}
+
+/* Estilos para a Loja */
+.category-button {
+    -fx-background-color: #4a4a4a;
+    -fx-text-fill: white;
+    -fx-border-color: #666;
+    -fx-border-radius: 5;
+    -fx-padding: 8 15;
+    -fx-font-size: 12;
+}
+
+.category-button:hover {
+    -fx-background-color: #5a5a5a;
+}
+
+.category-selected {
+    -fx-background-color: #3498db;
+    -fx-border-color: #2980b9;
+}
+
+.buy-button {
+    -fx-background-color: #27ae60;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-radius: 5;
+    -fx-padding: 8 15;
+}
+
+.buy-button:hover {
+    -fx-background-color: #2ecc71;
+}
+
+.buy-button:disabled {
+    -fx-background-color: #7f8c8d;
+    -fx-text-fill: #bdc3c7;
+}
+
+/* Estilos para slots de itens da loja */
+.shop-item-slot {
+    -fx-background-color: #4a4a4a;
+    -fx-border-color: #666;
+    -fx-border-radius: 5;
+    -fx-padding: 10;
+    -fx-alignment: center;
+}
+
+.shop-item-slot:hover {
+    -fx-background-color: #5a5a5a;
+    -fx-border-color: #3498db;
+}

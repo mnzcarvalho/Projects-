@@ -1,0 +1,190 @@
+📋 GUIA PARA NOVA IA - CONTINUAÇÃO DO ETERNAL IDLE
+🎮 CONTEXTO DO PROJETO
+PROJETO: Eternal Idle - Jogo Idle/RPG em Java + JavaFX
+ESTADO ATUAL: Sistema básico funcionando + Loja visual implementada
+
+📁 ESTRUTURA ATUAL FUNCIONAL
+text
+src/eternalidle/
+├── controller/
+│   ├── GameController.java      # Tela principal ✅ FUNCIONANDO
+│   ├── InventoryController.java # Inventário visual ✅ FUNCIONANDO
+│   └── ShopController.java      # Loja visual ✅ FUNCIONANDO (versão mínima)
+├── view/
+│   ├── game.fxml               # Interface principal ✅
+│   ├── inventory.fxml          # Inventário ✅
+│   └── shop.fxml               # Loja ✅
+└── model/
+    ├── systems/
+    │   ├── GameManager.java     # Lógica principal ✅
+    │   ├── ShopSystem.java      # Sistema de loja ✅
+    │   ├── StashSystem.java     # Sistema de stash ✅ (console)
+    │   └── ...
+    ├── inventory/
+    │   ├── StashManager.java    # Gerenciador de stash ✅
+    │   ├── StashTab.java        # Abas do stash ✅
+    │   └── ...
+    └── ...
+✅ SISTEMAS IMPLEMENTADOS E FUNCIONAIS
+🎮 Game Loop - Combate automático, experiência, level up
+
+🎒 Inventário Visual - Drag & drop, equipamento, tooltips
+
+🏪 Loja Visual - Versão mínima funcionando sem travar
+
+📦 Stash System - Funciona no console, falta UI visual
+
+🔧 PRÓXIMOS SISTEMAS PARA IMPLEMENTAR
+PRIORIDADE 1: 🏠 Stash Visual
+PRIORIDADE 2: 🌳 Skills Tree Visual
+PRIORIDADE 3: 🔨 Crafting Visual
+PRIORIDADE 4: 🐉 Bosses Visual
+
+🎯 PADRÕES DE IMPLEMENTAÇÃO ESTABELECIDOS
+1. Estrutura de Controllers
+java
+public class NomeController {
+    private GameManager gameManager;
+    private Stage controllerStage;
+
+    @FXML private void initialize() {
+        System.out.println("✅ Controller inicializado!");
+    }
+
+    public void setGameManager(GameManager gm) {
+        this.gameManager = gm;
+        initializeData();
+    }
+
+    public void setControllerStage(Stage stage) {
+        this.controllerStage = stage;
+    }
+
+    @FXML private void handleClose() {
+        if (controllerStage != null) controllerStage.close();
+    }
+}
+2. Como Abrir Novas Janelas
+java
+public void openNomeSistema() {
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/eternalidle/view/nome.fxml"));
+        Parent root = loader.load();
+
+        NomeController controller = loader.getController();
+        controller.setGameManager(gameManager);
+
+        Stage stage = new Stage();
+        controller.setControllerStage(stage);
+
+        stage.setTitle("Sistema - Eternal Idle");
+        stage.setScene(new Scene(root, 600, 500));
+        stage.setResizable(false);
+        stage.show();
+
+    } catch (Exception e) {
+        System.err.println("❌ Erro ao abrir sistema: " + e.getMessage());
+        // Fallback para console
+        gameManager.openNomeSistema();
+    }
+}
+3. Conexão com Sistemas Existentes
+Use gameManager.getPlayer() para acessar o jogador
+
+Use gameManager.getPlayerInventory() para inventário
+
+Use gameManager.getShopSystem() para loja
+
+Use gameManager.getStashSystem() para stash
+
+SEMPRE forneça fallback para versão console
+
+⚠️ PONTOS DE ATENÇÃO CRÍTICOS
+Performance e Threads
+java
+// ✅ CORRETO - UI na thread principal
+Platform.runLater(() -> {
+    label.setText("Texto atualizado");
+});
+
+// ✅ Operações pesadas em threads separadas
+new Thread(() -> {
+    // Processamento pesado
+    List<Item> items = heavyProcessing();
+    Platform.runLater(() -> updateUI(items));
+}).start();
+Tratamento de Erros
+java
+try {
+    // código FXML
+} catch (Exception e) {
+    System.err.println("❌ Erro: " + e.getMessage());
+    e.printStackTrace();
+    // Fallback para não quebrar o jogo
+    gameManager.openSistemaConsole();
+}
+🔄 COMO CONTINUAR O DESENVOLVIMENTO
+Para Nova IA Começar:
+Analisar estado atual - Verificar quais sistemas já têm UI
+
+Escolher próximo sistema - Prioridade: Stash → Skills → Crafting → Bosses
+
+Seguir padrão estabelecido - Usar ShopController como referência
+
+Manter consistência visual - Mesmo esquema de cores e layout
+
+Testar integração - Verificar se fallbacks para console funcionam
+
+Comandos Úteis para o Usuário:
+"Estou continuando o Eternal Idle JavaFX"
+
+"Estado atual: [descrever o que foi implementado]"
+
+"Preciso implementar: [funcionalidade específica]"
+
+"Problema encontrado: [erro específico]"
+
+Checklist de Qualidade:
+Controller segue padrão estabelecido
+
+FXML tem todos os IDs corretos
+
+Conexão com GameManager funcionando
+
+Fallback para console implementado
+
+Tooltips informativos adicionados
+
+Tratamento de erros robusto
+
+Performance otimizada
+
+🚀 PRÓXIMOS PASSOS RECOMENDADOS
+🏠 Stash Visual (2-3 horas)
+StashController.java + stash.fxml
+
+Abas por tipo (Armas, Armaduras, Materiais)
+
+Sistema de drag & drop do inventário para stash
+
+🌳 Skills Tree Visual (3-4 horas)
+SkillsController.java + skills.fxml
+
+Árvore de habilidades interativa
+
+Nós clicáveis com conexões visuais
+
+🔨 Crafting Visual (3-4 horas)
+CraftingController.java + crafting.fxml
+
+Grid de receitas disponíveis
+
+Sistema de arrastar materiais
+
+🐉 Bosses Visual (2-3 horas)
+BossController.java + bosses.fxml
+
+Lista de bosses disponíveis
+
+Barra de vida especial para bosses
+

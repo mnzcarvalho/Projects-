@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<!-- 🔥 CORREÇÃO: fx:controller deve estar na tag raiz -->
+<VBox fx:controller="eternalidle.controller.ShopController"
+      xmlns="http://javafx.com/javafx/11.0.1"
+      xmlns:fx="http://javafx.com/fxml/1"
+      spacing="10" style="-fx-background-color: #2b2b2b; -fx-padding: 15;">
+
+    <!-- CABEÇALHO MÍNIMO -->
+    <HBox spacing="20" alignment="CENTER_LEFT">
+        <Label fx:id="shopTitle" text="Loja - Eternal Idle"
+               style="-fx-text-fill: white; -fx-font-size: 16;" />
+        <Region HBox.hgrow="ALWAYS" />
+        <Label fx:id="goldLabel" text="Ouro: 0"
+               style="-fx-text-fill: gold; -fx-font-size: 14;" />
+        <Button text="Atualizar" onAction="#handleRefresh" />
+        <Button text="Fechar" onAction="#handleClose" />
+    </HBox>
+
+    <!-- ITENS MÍNIMOS -->
+    <Label text="Clique nos itens:" style="-fx-text-fill: white;" />
+
+    <GridPane fx:id="itemsGrid" hgap="10" vgap="10"
+              style="-fx-padding: 10;" />
+
+</VBox>

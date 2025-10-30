@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="eternalidle.controller.InventoryController"
+      spacing="15"
+      style="-fx-background-color: #2b2b2b; -fx-padding: 20; -fx-pref-width: 600; -fx-pref-height: 500;">
+
+    <!-- CABEÇALHO -->
+    <HBox spacing="20" alignment="CENTER">
+        <Label fx:id="inventoryTitle" text="Inventário"
+               style="-fx-text-fill: white; -fx-font-size: 24; -fx-font-weight: bold;"/>
+        <Label fx:id="capacityLabel" text="Capacidade: 0/20"
+               style="-fx-text-fill: #95a5a6; -fx-font-size: 14;"/>
+    </HBox>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <HBox spacing="20" VBox.vgrow="ALWAYS">
+
+        <!-- COLUNA ESQUERDA - EQUIPAMENTOS -->
+        <VBox spacing="15" prefWidth="200">
+            <Label text="🛡️ EQUIPAMENTOS"
+                   style="-fx-text-fill: white; -fx-font-size: 16; -fx-font-weight: bold;"/>
+
+            <VBox spacing="10" style="-fx-background-color: #3c3c3c; -fx-padding: 15; -fx-background-radius: 8;">
+
+                <!-- Slot de Arma -->
+                <VBox spacing="5">
+                    <Label text="ARMA" style="-fx-text-fill: #95a5a6; -fx-font-size: 12;"/>
+                    <VBox fx:id="weaponSlot" spacing="5" alignment="CENTER"
+                          style="-fx-background-color: #4a4a4a; -fx-padding: 10; -fx-background-radius: 5; -fx-min-height: 60;">
+                        <Label text="⚔️" style="-fx-font-size: 20;"/>
+                        <Label fx:id="weaponLabel" text="Nenhuma"
+                               style="-fx-text-fill: #3498db; -fx-font-size: 12; -fx-text-alignment: center;"/>
+                        <Button fx:id="unequipWeaponButton" text="❌" onAction="#handleUnequipWeapon"
+                                style="-fx-background-color: transparent; -fx-text-fill: #e74c3c; -fx-font-size: 10; -fx-pref-width: 20; -fx-pref-height: 20;"/>
+                    </VBox>
+                </VBox>
+
+                <!-- Slot de Capacete -->
+                <VBox spacing="5">
+                    <Label text="CAPACETE" style="-fx-text-fill: #95a5a6; -fx-font-size: 12;"/>
+                    <VBox fx:id="helmetSlot" spacing="5" alignment="CENTER"
+                          style="-fx-background-color: #4a4a4a; -fx-padding: 10; -fx-background-radius: 5; -fx-min-height: 60;">
+                        <Label text="⛑️" style="-fx-font-size: 20;"/>
+                        <Label fx:id="helmetLabel" text="Nenhum"
+                               style="-fx-text-fill: #3498db; -fx-font-size: 12; -fx-text-alignment: center;"/>
+                        <Button fx:id="unequipHelmetButton" text="❌" onAction="#handleUnequipHelmet"
+                                style="-fx-background-color: transparent; -fx-text-fill: #e74c3c; -fx-font-size: 10; -fx-pref-width: 20; -fx-pref-height: 20;"/>
+                    </VBox>
+                </VBox>
+
+                <!-- Slot de Armadura -->
+                <VBox spacing="5">
+                    <Label text="ARMADURA" style="-fx-text-fill: #95a5a6; -fx-font-size: 12;"/>
+                    <VBox fx:id="chestSlot" spacing="5" alignment="CENTER"
+                          style="-fx-background-color: #4a4a4a; -fx-padding: 10; -fx-background-radius: 5; -fx-min-height: 60;">
+                        <Label text="👕" style="-fx-font-size: 20;"/>
+                        <Label fx:id="chestLabel" text="Nenhuma"
+                               style="-fx-text-fill: #3498db; -fx-font-size: 12; -fx-text-alignment: center;"/>
+                        <Button fx:id="unequipChestButton" text="❌" onAction="#handleUnequipChest"
+                                style="-fx-background-color: transparent; -fx-text-fill: #e74c3c; -fx-font-size: 10; -fx-pref-width: 20; -fx-pref-height: 20;"/>
+                    </VBox>
+                </VBox>
+
+                <!-- Slot de Luvas -->
+                <VBox spacing="5">
+                    <Label text="LUVAS" style="-fx-text-fill: #95a5a6; -fx-font-size: 12;"/>
+                    <VBox fx:id="glovesSlot" spacing="5" alignment="CENTER"
+                          style="-fx-background-color: #4a4a4a; -fx-padding: 10; -fx-background-radius: 5; -fx-min-height: 60;">
+                        <Label text="🧤" style="-fx-font-size: 20;"/>
+                        <Label fx:id="glovesLabel" text="Nenhuma"
+                               style="-fx-text-fill: #3498db; -fx-font-size: 12; -fx-text-alignment: center;"/>
+                        <Button fx:id="unequipGlovesButton" text="❌" onAction="#handleUnequipGloves"
+                                style="-fx-background-color: transparent; -fx-text-fill: #e74c3c; -fx-font-size: 10; -fx-pref-width: 20; -fx-pref-height: 20;"/>
+                    </VBox>
+                </VBox>
+
+                <!-- Slot de Botas -->
+                <VBox spacing="5">
+                    <Label text="BOTAS" style="-fx-text-fill: #95a5a6; -fx-font-size: 12;"/>
+                    <VBox fx:id="bootsSlot" spacing="5" alignment="CENTER"
+                          style="-fx-background-color: #4a4a4a; -fx-padding: 10; -fx-background-radius: 5; -fx-min-height: 60;">
+                        <Label text="👢" style="-fx-font-size: 20;"/>
+                        <Label fx:id="bootsLabel" text="Nenhum"
+                               style="-fx-text-fill: #3498db; -fx-font-size: 12; -fx-text-alignment: center;"/>
+                        <Button fx:id="unequipBootsButton" text="❌" onAction="#handleUnequipBoots"
+                                style="-fx-background-color: transparent; -fx-text-fill: #e74c3c; -fx-font-size: 10; -fx-pref-width: 20; -fx-pref-height: 20;"/>
+                    </VBox>
+                </VBox>
+            </VBox>
+        </VBox>
+
+        <!-- COLUNA DIREITA - INVENTÁRIO -->
+        <VBox spacing="15" VBox.vgrow="ALWAYS">
+            <Label text="🎒 INVENTÁRIO (20 slots)"
+                   style="-fx-text-fill: white; -fx-font-size: 16; -fx-font-weight: bold;"/>
+
+            <GridPane fx:id="inventoryGrid"
+                      style="-fx-background-color: #3c3c3c; -fx-padding: 15; -fx-background-radius: 8;"
+                      hgap="10" vgap="10">
+                <!-- Grid será preenchido dinamicamente pelo controller -->
+            </GridPane>
+
+            <!-- BOTÕES DE AÇÃO RÁPIDA -->
+            <HBox spacing="10" alignment="CENTER">
+                <Button text="💰 Vender Selecionado" onAction="#handleSellSelected"
+                        style="-fx-background-color: #f39c12; -fx-text-fill: white; -fx-font-weight: bold; -fx-pref-height: 35;"/>
+                <Button text="📦 Armazenar" onAction="#handleStoreSelected"
+                        style="-fx-background-color: #e67e22; -fx-text-fill: white; -fx-font-weight: bold; -fx-pref-height: 35;"/>
+            </HBox>
+
+            <HBox spacing="10" alignment="CENTER_RIGHT">
+                <Button text="🔄 Atualizar" onAction="#handleRefresh"
+                        style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold;"/>
+                <Button fx:id="closeButton" text="❌ Fechar" onAction="#handleClose"
+                        style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold;"/>
+            </HBox>
+        </VBox>
+    </HBox>
+</VBox>
