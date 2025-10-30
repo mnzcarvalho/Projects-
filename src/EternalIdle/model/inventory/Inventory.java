@@ -1,7 +1,7 @@
-package EternalIdle.inventory;
+package EternalIdle.model.inventory;
 
-import EternalIdle.items.Item;
-import EternalIdle.items.currency.Gold;
+import EternalIdle.model.items.Item;
+import EternalIdle.model.items.currency.Gold;
 import java.util.ArrayList;
 import java.util.List;
 

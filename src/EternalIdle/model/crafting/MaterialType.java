@@ -1,4 +1,4 @@
-package EternalIdle.crafting;
+package EternalIdle.model.crafting;
 
 public enum MaterialType {
     FRAGMENT("Fragmento", "🧩"),

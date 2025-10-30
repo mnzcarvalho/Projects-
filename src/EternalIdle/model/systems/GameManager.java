@@ -1,18 +1,18 @@
-package EternalIdle.systems;
+package EternalIdle.model.systems;
 
-import EternalIdle.entity.Monster;
-import EternalIdle.entity.MonsterFactory;
-import EternalIdle.entity.Player;
+import EternalIdle.model.entity.Monster;
+import EternalIdle.model.entity.MonsterFactory;
+import EternalIdle.model.entity.Player;
 import java.math.BigDecimal;
 import java.util.List;
-import EternalIdle.items.Item;
-import EternalIdle.inventory.Inventory;
-import EternalIdle.items.ItemRarity;
-import EternalIdle.items.equipment.Equipment;
-import EternalIdle.items.equipment.Weapon;
-import EternalIdle.persistence.SaveManager;
-import EternalIdle.statistics.PlayerStatistics;
-import EternalIdle.statistics.GameStatistics;
+import EternalIdle.model.items.Item;
+import EternalIdle.model.inventory.Inventory;
+import EternalIdle.model.items.ItemRarity;
+import EternalIdle.model.items.equipment.Equipment;
+import EternalIdle.model.items.equipment.Weapon;
+import EternalIdle.model.persistence.SaveManager;
+import EternalIdle.model.statistics.PlayerStatistics;
+import EternalIdle.model.statistics.GameStatistics;
 
 public class GameManager {
     private Player player;
@@ -32,10 +32,6 @@ public class GameManager {
     private CraftingSystem craftingSystem;
     private BossManager bossManager;
 
-
-
-
-
     // 🔥 CONFIGURAÇÃO DE DANO PARA TESTE
     private static final int PLAYER_BASE_DAMAGE = 50;
 
@@ -53,7 +49,7 @@ public class GameManager {
         this.gameStatistics = new GameStatistics();
 
         // 🔥 AGORA PASSAR AS ESTATÍSTICAS PARA O SHOP SYSTEM
-        this.shopSystem = new ShopSystem(stashSystem, playerStatistics); // 🔥 ATUALIZADO
+        this.shopSystem = new ShopSystem(stashSystem, playerStatistics);
 
         this.craftingSystem = new CraftingSystem();
         this.bossManager = new BossManager();
@@ -61,6 +57,9 @@ public class GameManager {
         this.lastAutosaveTime = System.currentTimeMillis();
 
         spawnMonsterByTier();
+
+        // 🔥 COMENTE O LOOP AUTOMÁTICO PARA JAVAFX
+        // startGame();
     }
 
     public void startGame() {
@@ -73,10 +72,10 @@ public class GameManager {
     }
 
     private void gameLoop() {
-        while (gameRunning && monstersDefeated < 50) { // Limite de 50 monstros para teste
+        while (gameRunning && monstersDefeated < 50) {
             try {
                 updateGame();
-                Thread.sleep(2000); // Mais rápido para teste (2 segundos)
+                Thread.sleep(2000);
             } catch (InterruptedException e) {
                 System.out.println("Jogo interrompido");
                 break;
@@ -90,21 +89,19 @@ public class GameManager {
         }
     }
 
-    private void updateGame() {
+    // 🔥 MÉTODO PÚBLICO PARA JAVAFX
+    public void updateGame() {
         if (currentMonster == null || !currentMonster.isAlive()) {
             defeatMonster();
             spawnMonsterByTier();
         } else {
             simulateCombat();
         }
-
-        displayGameStatus();
     }
 
-    private void simulateCombat() {
-        // 🔥 DANO FIXO DE 50 + DANO DA ARMA
+    // 🔥 MÉTODO PÚBLICO PARA JAVAFX
+    public void simulateCombat() {
         BigDecimal playerDamage = BigDecimal.valueOf(PLAYER_BASE_DAMAGE + player.getWeaponDamage());
-
         boolean monsterDied = currentMonster.takeDamage(playerDamage);
 
         if (monsterDied) {
@@ -116,13 +113,11 @@ public class GameManager {
     private void spawnMonsterByTier() {
         int tier = calculateCurrentTier();
         currentMonster = MonsterFactory.getMonsterByTier(tier);
-
         System.out.println("✨ " + getTierEmoji(tier) + " " + currentMonster.getName() +
                 " (Nível " + currentMonster.getLevel() + ") apareceu!");
     }
 
     private int calculateCurrentTier() {
-        // Progressão: a cada 3 monstros, sobe 1 tier
         return Math.min(monstersDefeated / 3, allMonsters.size() - 1);
     }
 
@@ -137,7 +132,6 @@ public class GameManager {
 
     private void defeatMonster() {
         if (currentMonster != null && !currentMonster.isAlive()) {
-            // 🔥 APLICAR BÔNUS DE OURO DAS SKILLS
             double goldBonus = 1.0 + player.getSkillTree().getTotalGoldBonus();
             long bonusGold = (long) (currentMonster.getGoldReward() * goldBonus);
 
@@ -149,6 +143,7 @@ public class GameManager {
             System.out.println("   +" + currentMonster.getExpReward() + " EXP");
             System.out.println("   +" + bonusGold + " Ouro (+" +
                     String.format("%.0f", (goldBonus - 1.0) * 100) + "% bônus)");
+
             playerStatistics.addMonsterKilled();
             playerStatistics.addGoldEarned(currentMonster.getGoldReward());
             playerStatistics.addDamageDealt(currentMonster.getMaxHealth().longValue());
@@ -160,7 +155,6 @@ public class GameManager {
                     currentMonster.getName(), currentMonster.getLevel());
 
             for (Item drop : drops) {
-                // 🔥 NOVO: Tentar adicionar ao stash primeiro
                 if (stashSystem.autoStoreItem(drop)) {
                     System.out.println("📦 " + drop.getName() + " armazenado no stash!");
                 } else if (playerInventory.addItem(drop)) {
@@ -169,12 +163,9 @@ public class GameManager {
                     System.out.println("❌ Não foi possível armazenar: " + drop.getName());
                 }
 
-
-                // EQUIPAR AUTOMATICAMENTE SE FOR MELHOR
                 if (drop instanceof Equipment) {
                     Equipment equipment = (Equipment) drop;
                     if (equipment.canEquip(player.getLevel())) {
-                        // Simples lógica para equipar se for raro ou melhor
                         if (equipment.getRarity().ordinal() >= ItemRarity.RARE.ordinal()) {
                             player.equipItem(equipment);
                         }
@@ -182,17 +173,14 @@ public class GameManager {
                 }
             }
 
-            // 🔥 MOSTRAR SKILL TREE A CADA 10 LEVELS (FORA DO LOOP)
             if (player.getLevel() % 10 == 0) {
                 player.displaySkills();
             }
 
-            // Mostrar equipamento a cada 10 monstros
             if (monstersDefeated % 10 == 0) {
                 player.displayEquipment();
             }
 
-            // Mostrar inventário a cada 5 monstros derrotados
             if (monstersDefeated % 5 == 0) {
                 playerInventory.displayInventory();
             }
@@ -209,8 +197,6 @@ public class GameManager {
         System.out.println("Jogador: " + player.getName() + " (Nível " + player.getLevel() + ")");
         System.out.println("💰 Ouro: " + player.getGold());
 
-
-        // 🔥 MOSTRAR ARMA EQUIPADA
         if (player.getEquipmentManager().hasWeapon()) {
             Weapon weapon = player.getEquipmentManager().getCurrentWeapon();
             System.out.println("Arma: " + weapon.getName() + " (DPS: " +
@@ -238,26 +224,15 @@ public class GameManager {
         stashSystem.openStash();
     }
 
-
-
-    // 🔥 MÉTODOS PARA ACESSAR OS MENUS
     public void showPlayerStatus() {
         System.out.println("\n=== STATUS DO JOGADOR ===");
         player.displayStatus();
     }
 
-    // 🔥 NOVO: Tentar carregar autosave ao iniciar
-    private void attemptLoadAutosave() {
-        System.out.println("💾 Procurando save automático...");
-        // Aqui você implementaria a lógica de carregamento
-        // Por enquanto, vamos apenas inicializar um novo jogo
-        System.out.println("🎮 Iniciando novo jogo...");
-    }
-
     private void checkAutosave() {
         long currentTime = System.currentTimeMillis();
         long timeSinceLastSave = currentTime - lastAutosaveTime;
-        long autosaveIntervalMs = saveManager.getAutosaveInterval() * 60 * 1000; // Converter para ms
+        long autosaveIntervalMs = saveManager.getAutosaveInterval() * 60 * 1000;
 
         if (timeSinceLastSave >= autosaveIntervalMs) {
             performAutosave();
@@ -265,7 +240,6 @@ public class GameManager {
         }
     }
 
-    // 🔥 NOVO: Realizar autosave
     private void performAutosave() {
         if (saveManager.isAutosaveEnabled()) {
             System.out.println("💾 Salvando automaticamente...");
@@ -277,7 +251,6 @@ public class GameManager {
         }
     }
 
-    // 🔥 ADICIONE ESTES MÉTODOS PARA SALVAMENTO MANUAL
     public void saveGame(String saveName) {
         System.out.println("💾 Salvando jogo...");
         boolean success = saveManager.saveGame(saveName, player, playerStatistics, gameStatistics);
@@ -291,17 +264,13 @@ public class GameManager {
 
     public void loadGame(String saveName) {
         System.out.println("💾 Carregando jogo: " + saveName);
-        // Aqui você implementaria a lógica de carregamento completo
-        // Por enquanto, vamos apenas mostrar uma mensagem
         System.out.println("🔄 Sistema de carregamento em desenvolvimento...");
-        System.out.println("💡 Dica: O autosave funciona a cada " + saveManager.getAutosaveInterval() + " minutos!");
     }
 
     public void showSaveFiles() {
         saveManager.displaySaveFiles();
     }
 
-    // 🔥 ADICIONE MÉTODOS PARA ESTATÍSTICAS
     public void showStatistics() {
         playerStatistics.displayStatistics();
     }
@@ -310,11 +279,8 @@ public class GameManager {
         gameStatistics.displayDetailedStatistics();
     }
 
-    // 🔥 ATUALIZE o método stopGame() para salvar ao sair
     public void stopGame() {
         gameRunning = false;
-
-        // 🔥 SALVAR AO SAIR
         System.out.println("💾 Salvando antes de sair...");
         saveGame("exit_save");
 
@@ -324,6 +290,33 @@ public class GameManager {
         System.out.println("⏹️ Jogo encerrado!");
         player.displayStatus();
         playerInventory.displayInventory();
+    }
+
+    // 🔥 MÉTODOS PARA JAVAFX
+    public Player getPlayer() {
+        return player;
+    }
+
+    public Monster getCurrentMonster() {
+        return currentMonster;
+    }
+
+    public int getMonstersDefeated() {
+        return monstersDefeated;
+    }
+
+    public String getMonsterHealthInfo() {
+        if (currentMonster != null) {
+            return currentMonster.getHealth() + "/" + currentMonster.getMaxHealth() + " HP";
+        }
+        return "Nenhum monstro";
+    }
+
+    public String getCurrentMonsterName() {
+        if (currentMonster != null) {
+            return currentMonster.getName();
+        }
+        return "Aguardando monstro...";
     }
 
     public void openCrafting() {
@@ -345,5 +338,4 @@ public class GameManager {
     public void showInventory() {
         playerInventory.displayInventory();
     }
-
 }

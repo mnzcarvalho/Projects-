@@ -1,4 +1,4 @@
-package EternalIdle.shop;
+package EternalIdle.model.shop;
 
 public enum ShopCategory {
     WEAPONS("Armas", "⚔️"),

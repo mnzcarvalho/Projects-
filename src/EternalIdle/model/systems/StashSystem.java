@@ -1,9 +1,9 @@
-package EternalIdle.systems;
+package EternalIdle.model.systems;
 
-import EternalIdle.inventory.StashManager;
-import EternalIdle.inventory.StashTab;
-import EternalIdle.inventory.TabType;
-import EternalIdle.items.Item;
+import EternalIdle.model.inventory.StashManager;
+import EternalIdle.model.inventory.StashTab;
+import EternalIdle.model.inventory.TabType;
+import EternalIdle.model.items.Item;
 import java.util.Scanner;
 
 public class StashSystem {

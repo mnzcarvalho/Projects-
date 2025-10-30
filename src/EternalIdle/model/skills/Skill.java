@@ -1,4 +1,4 @@
-package EternalIdle.skills;
+package EternalIdle.model.skills;
 
 public class Skill {
 }

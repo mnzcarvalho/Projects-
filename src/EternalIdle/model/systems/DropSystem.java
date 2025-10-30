@@ -1,11 +1,11 @@
-package EternalIdle.systems;
+package EternalIdle.model.systems;
 
-import EternalIdle.items.Item;
-import EternalIdle.items.currency.Gold;
-import EternalIdle.items.equipment.Weapon;
-import EternalIdle.items.equipment.Armor;
-import EternalIdle.items.consumable.Potion;
-import EternalIdle.items.ItemRarity;
+import EternalIdle.model.items.Item;
+import EternalIdle.model.items.currency.Gold;
+import EternalIdle.model.items.equipment.Weapon;
+import EternalIdle.model.items.equipment.Armor;
+import EternalIdle.model.items.consumable.Potion;
+import EternalIdle.model.items.ItemRarity;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;

@@ -1,6 +1,6 @@
-package EternalIdle.skills;
+package EternalIdle.model.skills;
 
-import EternalIdle.status.PlayerAttributes;
+import EternalIdle.model.status.PlayerAttributes;
 import java.util.ArrayList;
 import java.util.List;
 

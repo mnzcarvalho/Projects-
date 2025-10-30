@@ -1,9 +1,9 @@
-package EternalIdle.persistence;
+package EternalIdle.model.persistence;
 
-import EternalIdle.entity.Player;
-import EternalIdle.statistics.PlayerStatistics;
-import EternalIdle.statistics.GameStatistics;
-import EternalIdle.util.FileHandler;
+import EternalIdle.model.entity.Player;
+import EternalIdle.model.statistics.PlayerStatistics;
+import EternalIdle.model.statistics.GameStatistics;
+import EternalIdle.model.util.FileHandler;
 import java.util.*;
 
 public class SaveManager {

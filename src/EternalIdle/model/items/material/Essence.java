@@ -1,8 +1,8 @@
-package EternalIdle.items.materials;
+package EternalIdle.model.items.materials;
 
-import EternalIdle.crafting.CraftingMaterial;
-import EternalIdle.crafting.MaterialType;
-import EternalIdle.items.ItemRarity;
+import EternalIdle.model.crafting.CraftingMaterial;
+import EternalIdle.model.crafting.MaterialType;
+import EternalIdle.model.items.ItemRarity;
 
 public class Essence extends CraftingMaterial {
     public Essence(String element, int tier) {

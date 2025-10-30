@@ -1,14 +1,7 @@
-package EternalIdle.systems;
+package EternalIdle.model.systems;
 
-import EternalIdle.crafting.CraftingStation;
-import EternalIdle.crafting.Recipe;
-import EternalIdle.crafting.RecipeType;
-import EternalIdle.items.Item;
-import EternalIdle.items.materials.Fragment;
-import EternalIdle.items.materials.Essence;
-import EternalIdle.items.equipment.Weapon;
-import EternalIdle.items.equipment.Armor;
-import EternalIdle.items.ItemRarity;
+import EternalIdle.model.crafting.CraftingStation;
+
 import java.util.*;
 
 public class CraftingSystem {

@@ -1,9 +1,9 @@
-package EternalIdle.entity;
+package EternalIdle.model.entity;
 
-import EternalIdle.systems.EquipmentManager;
-import EternalIdle.items.equipment.Equipment;
-import EternalIdle.skills.SkillTree;
-import EternalIdle.status.PlayerAttributes;
+import EternalIdle.model.systems.EquipmentManager;
+import EternalIdle.model.items.equipment.Equipment;
+import EternalIdle.model.skills.SkillTree;
+import EternalIdle.model.status.PlayerAttributes;
 
 public class Player {
     private String name;
@@ -41,6 +41,19 @@ public class Player {
         return gold;
     }
 
+    // 🔥 MÉTODOS PARA JAVAFX - NOVOS!
+    public int getExpToNextLevel() {
+        return level * 100;
+    }
+
+    public long getCurrentExp() {
+        return experience;
+    }
+
+    public double getExpProgress() {
+        return (double) experience / getExpToNextLevel();
+    }
+
     // 🔥 MÉTODOS PARA ADICIONAR RECURSOS
     public void addExperience(long exp) {
         this.experience += exp;
@@ -73,7 +86,7 @@ public class Player {
         System.out.println("✨ Ganhou 1 ponto de habilidade!");
     }
 
-    // 🔥 MÉTODOS DE EQUIPAMENTO (APENAS UMA VERSÃO DE CADA!)
+    // 🔥 MÉTODOS DE EQUIPAMENTO
     public EquipmentManager getEquipmentManager() {
         return equipmentManager;
     }
@@ -96,7 +109,6 @@ public class Player {
         return equipmentManager.getWeaponDPS();
     }
 
-    // 🔥 APENAS UMA VERSÃO DO getWeaponDamage()!
     public int getWeaponDamage() {
         int baseDamage = equipmentManager.getWeaponDamage();
         int strengthBonus = attributes.getStrength() * 2;
@@ -112,7 +124,6 @@ public class Player {
         return attributes;
     }
 
-    // 🔥 APENAS UMA VERSÃO DO displaySkills()!
     public void displaySkills() {
         System.out.println("\n🌳 === HABILIDADES ===");
         skillTree.displaySkillTree();
@@ -120,7 +131,6 @@ public class Player {
         System.out.println("=====================\n");
     }
 
-    // 🔥 APENAS UMA VERSÃO DO displayStatus()!
     public void displayStatus() {
         System.out.println("\n📊 === STATUS ===");
         System.out.println("Nome: " + name);

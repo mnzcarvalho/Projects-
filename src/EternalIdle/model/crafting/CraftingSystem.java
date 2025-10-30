@@ -1,12 +1,11 @@
-package EternalIdle.crafting;
+package EternalIdle.model.crafting;
 
-import EternalIdle.items.Item;
-import EternalIdle.items.materials.Fragment;
-import EternalIdle.items.materials.Essence;
-import EternalIdle.items.materials.Core;
-import EternalIdle.items.equipment.Weapon;
-import EternalIdle.items.equipment.Armor;
-import EternalIdle.items.ItemRarity;
+import EternalIdle.model.items.Item;
+import EternalIdle.model.items.materials.Fragment;
+import EternalIdle.model.items.materials.Essence;
+import EternalIdle.model.items.equipment.Weapon;
+import EternalIdle.model.items.equipment.Armor;
+import EternalIdle.model.items.ItemRarity;
 import java.util.*;
 
 public class CraftingSystem {

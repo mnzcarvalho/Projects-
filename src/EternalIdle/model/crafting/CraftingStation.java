@@ -1,8 +1,6 @@
-package EternalIdle.crafting;
+package EternalIdle.model.crafting;
 
-import EternalIdle.items.Item;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 

@@ -1,7 +1,7 @@
-package EternalIdle.items.consumable;
+package EternalIdle.model.items.consumable;
 
-import EternalIdle.items.Item;
-import EternalIdle.items.ItemRarity;
+import EternalIdle.model.items.Item;
+import EternalIdle.model.items.ItemRarity;
 
 public class Potion extends Item {
     private int healAmount;

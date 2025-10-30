@@ -1,4 +1,4 @@
-package EternalIdle.rewards;
+package EternalIdle.model.rewards;
 
 public class EventManager {
 }

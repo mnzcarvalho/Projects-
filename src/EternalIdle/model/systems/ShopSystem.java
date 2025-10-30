@@ -1,15 +1,15 @@
-package EternalIdle.systems;
+package EternalIdle.model.systems;
 
-import EternalIdle.items.currency.Gold;
-import EternalIdle.shop.Shop;
-import EternalIdle.shop.ShopItem;
-import EternalIdle.shop.ShopCategory;
-import EternalIdle.entity.Player;
-import EternalIdle.inventory.Inventory;
-import EternalIdle.items.Item;
-import EternalIdle.items.equipment.Equipment;
-import EternalIdle.inventory.TabType;
-import EternalIdle.statistics.PlayerStatistics;
+import EternalIdle.model.items.currency.Gold;
+import EternalIdle.model.shop.Shop;
+import EternalIdle.model.shop.ShopItem;
+import EternalIdle.model.shop.ShopCategory;
+import EternalIdle.model.entity.Player;
+import EternalIdle.model.inventory.Inventory;
+import EternalIdle.model.items.Item;
+import EternalIdle.model.items.equipment.Equipment;
+import EternalIdle.model.inventory.TabType;
+import EternalIdle.model.statistics.PlayerStatistics;
 import java.util.Scanner;
 
 public class ShopSystem {

@@ -1,4 +1,4 @@
-package EternalIdle.inventory;
+package EternalIdle.model.inventory;
 
 public enum TabType {
     ALL("Todos", "📦", "Todos os itens"),

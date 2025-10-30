@@ -1,8 +1,8 @@
-package EternalIdle.systems;
+package EternalIdle.model.systems;
 
-import EternalIdle.items.equipment.Equipment;
-import EternalIdle.items.equipment.Weapon;
-import EternalIdle.items.equipment.Armor;
+import EternalIdle.model.items.equipment.Equipment;
+import EternalIdle.model.items.equipment.Weapon;
+import EternalIdle.model.items.equipment.Armor;
 import java.util.HashMap;
 import java.util.Map;
 

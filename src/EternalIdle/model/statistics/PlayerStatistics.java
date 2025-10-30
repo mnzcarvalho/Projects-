@@ -1,4 +1,4 @@
-package EternalIdle.statistics;
+package EternalIdle.model.statistics;
 
 import java.time.LocalDateTime;
 import java.time.Duration;

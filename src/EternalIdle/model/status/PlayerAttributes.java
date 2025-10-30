@@ -1,4 +1,4 @@
-package EternalIdle.status;
+package EternalIdle.model.status;
 
 public class PlayerAttributes {
     private int strength;      // Aumenta dano físico

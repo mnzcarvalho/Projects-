@@ -1,7 +1,7 @@
-package EternalIdle.bosses;
+package EternalIdle.model.bosses;
 
-import EternalIdle.entity.Monster;
-import EternalIdle.rewards.BossReward;
+import EternalIdle.model.entity.Monster;
+import EternalIdle.model.rewards.BossReward;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;

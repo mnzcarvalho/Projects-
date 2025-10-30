@@ -1,4 +1,4 @@
-package EternalIdle.util;
+package EternalIdle.model.util;
 
 import java.io.*;
 import java.nio.file.*;

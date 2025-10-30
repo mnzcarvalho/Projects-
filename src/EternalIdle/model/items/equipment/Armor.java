@@ -1,6 +1,6 @@
-package EternalIdle.items.equipment;
+package EternalIdle.model.items.equipment;
 
-import EternalIdle.items.ItemRarity;
+import EternalIdle.model.items.ItemRarity;
 
 public class Armor extends Equipment {
     private int defense;

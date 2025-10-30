@@ -1,4 +1,4 @@
-package EternalIdle.bosses;
+package EternalIdle.model.bosses;
 
 public enum BossType {
     // Bosses Normais

@@ -1,7 +1,7 @@
-package EternalIdle.items.currency;
+package EternalIdle.model.items.currency;
 
-import EternalIdle.items.Item;
-import EternalIdle.items.ItemRarity;
+import EternalIdle.model.items.Item;
+import EternalIdle.model.items.ItemRarity;
 
 public class Gold extends Item {
     private int amount;

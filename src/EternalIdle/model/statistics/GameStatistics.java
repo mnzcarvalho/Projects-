@@ -1,4 +1,4 @@
-package EternalIdle.statistics;
+package EternalIdle.model.statistics;
 
 import java.util.HashMap;
 import java.util.Map;

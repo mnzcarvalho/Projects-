@@ -1,4 +1,4 @@
-package EternalIdle.persistence;
+package EternalIdle.model.persistence;
 
 public class Saveable {
 }

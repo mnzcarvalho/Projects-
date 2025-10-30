@@ -1,87 +1,114 @@
 EternalIdle/
-├── .idea
-├── app
-│   └── Main.java
-├── bosses
+├── 📁 .idea/                          # Configurações IntelliJ
+├── 📁 src/
+│   ├── 📁 main/
+│   │   ├── 📁 java/
+│   │   │   └── 📁 eternalidle/        # 🔥 NOVO PACKAGE JAVAFX
+│   │   │       ├── EternalIdleApp.java              # Main JavaFX Application
+│   │   │       ├── 📁 controller/                   # Controladores JavaFX
+│   │   │       │   ├── GameController.java          # Controller principal
+│   │   │       │   ├── InventoryController.java     # Controller inventário
+│   │   │       │   ├── SkillsController.java        # Controller habilidades
+│   │   │       │   ├── ShopController.java          # Controller loja
+│   │   │       │   └── CraftingController.java      # Controller crafting
+│   │   │       ├── 📁 view/                         # Interfaces FXML
+│   │   │       │   ├── game.fxml                    # Tela principal
+│   │   │       │   ├── inventory.fxml               # Tela inventário
+│   │   │       │   ├── skills.fxml                  # Tela habilidades
+│   │   │       │   ├── shop.fxml                    # Tela loja
+│   │   │       │   └── crafting.fxml                # Tela crafting
+│   │   │       └── 📁 util/                         # Utilitários JavaFX
+│   │   │           ├── UIHelper.java                # Helper para UI
+│   │   │           └── AnimationManager.java        # Gerenciador animações
+│   │   └── 📁 resources/
+│   │       ├── 📁 images/                           # Recursos visuais
+│   │       │   ├── 📁 monsters/
+│   │       │   ├── 📁 items/
+│   │       │   ├── 📁 ui/
+│   │       │   └── 📁 icons/
+│   │       └── 📁 css/                              # Estilos
+│   │           ├── main.css
+│   │           ├── components.css
+│   │           └── themes/
+├── 📁 bosses/                         # ✅ MANTIDO
 │   ├── Boss.java
 │   ├── BossManager.java
 │   └── BossType.java
-├── crafting
+├── 📁 crafting/                       # ✅ MANTIDO
 │   ├── CraftingMaterial.java
 │   ├── CraftingStation.java
 │   ├── CraftingSystem.java
 │   ├── MaterialType.java
 │   ├── Recipe.java
 │   └── RecipeType.java
-├── entity
+├── 📁 entity/                         # ✅ MANTIDO
 │   ├── Monster.java
 │   ├── MonsterFactory.java
 │   └── Player.java
-├── events
+├── 📁 events/                         # ✅ MANTIDO
 │   ├── EventType.java
 │   ├── GameEvent.java
 │   └── TitleSystem.java
-├── inventory
+├── 📁 inventory/                      # ✅ MANTIDO
 │   ├── Inventory.java
 │   ├── StashManager.java
 │   ├── StashTab.java
 │   └── TabType.java
-├── items
-│   ├── consumable
+├── 📁 items/                          # ✅ MANTIDO
+│   ├── 📁 consumable/
 │   │   └── Potion.java
-│   ├── currency
+│   ├── 📁 currency/
 │   │   └── Gold.java
-│   ├── equipment
+│   ├── 📁 equipment/
 │   │   ├── Armor.java
 │   │   ├── Equipment.java
 │   │   └── Weapon.java
-│   ├── material
-│   │   └── Core.java
-│   │   └── Essence.java
+│   ├── 📁 material/
+│   │   ├── Core.java
+│   │   ├── Essence.java
 │   │   └── Fragment.java
-│   └── Item.java
+│   ├── Item.java
 │   └── ItemRarity.java
-├── others
+├── 📁 others/                         # ⚠️ DOCUMENTAÇÃO
 │   ├── estrutura_final.txt
 │   └── EternalIdle.txt
-├── persistence
+├── 📁 persistence/                    # ✅ MANTIDO
 │   ├── GameSave.java
 │   ├── Saveable.java
 │   └── SaveManager.java
-├── rewards
+├── 📁 rewards/                        # ✅ MANTIDO
 │   ├── BossReward.java
 │   ├── EventManager.java
 │   └── EventReward.java
-├── shop
+├── 📁 shop/                           # ✅ MANTIDO
 │   ├── Shop.java
 │   ├── ShopCategory.java
 │   └── ShopItem.java
-├── skills
+├── 📁 skills/                         # ✅ MANTIDO
 │   ├── Skill.java
 │   ├── SkillNode.java
 │   ├── SkillTree.java
 │   └── SkillType.java
-├── statistics
+├── 📁 statistics/                     # ✅ MANTIDO
 │   ├── GameStatistics.java
 │   ├── PlayerStatistics.java
 │   └── StatTracker.java
-├── status
+├── 📁 status/                         # ✅ MANTIDO
 │   └── PlayerAttributes.java
-├── systems
+├── 📁 systems/                        # ✅ MANTIDO
 │   ├── BossManager.java
 │   ├── CraftingSystem.java
 │   ├── DropSystem.java
 │   ├── EquipmentManager.java
-│   ├── GameManager.java
+│   ├── GameManager.java              # ✅ JÁ ATUALIZADO
 │   ├── IdleCombatSystem.java
 │   ├── ShopSystem.java
 │   └── StashSystem.java
-├── ui
-│   └── Main.java
-├── util
+├── 📁 util/                          # ✅ MANTIDO
 │   ├── FileHandler.java
 │   └── JSONConverter.java
-├── world
+├── 📁 world/                         # ✅ MANTIDO
 │   └── Version.java
 ├── CHANGELOG.md
-├── pom.xml
+├── pom.xml                          # Configuração Maven
+└── README.md

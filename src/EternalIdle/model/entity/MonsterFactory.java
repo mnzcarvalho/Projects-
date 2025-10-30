@@ -1,4 +1,4 @@
-package EternalIdle.entity;
+package EternalIdle.model.entity;
 
 import java.util.ArrayList;
 import java.util.List;

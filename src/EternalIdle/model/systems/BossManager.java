@@ -1,7 +1,4 @@
-package EternalIdle.systems;
-
-import EternalIdle.entity.Player;
-import java.util.*;
+package EternalIdle.model.systems;
 
 public class BossManager {
     private boolean bossSpawned;

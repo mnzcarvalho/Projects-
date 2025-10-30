@@ -1,8 +1,8 @@
-package EternalIdle.persistence;
+package EternalIdle.model.persistence;
 
-import EternalIdle.entity.Player;
-import EternalIdle.statistics.PlayerStatistics;
-import EternalIdle.statistics.GameStatistics;
+import EternalIdle.model.entity.Player;
+import EternalIdle.model.statistics.PlayerStatistics;
+import EternalIdle.model.statistics.GameStatistics;
 import java.time.LocalDateTime;
 
 public class GameSave {

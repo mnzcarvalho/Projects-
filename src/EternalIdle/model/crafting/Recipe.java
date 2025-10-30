@@ -1,9 +1,7 @@
-package EternalIdle.crafting;
+package EternalIdle.model.crafting;
 
-import EternalIdle.items.Item;
-import EternalIdle.items.ItemRarity;
-import EternalIdle.items.equipment.Weapon;
-import EternalIdle.items.equipment.Armor;
+import EternalIdle.model.items.Item;
+
 import java.util.HashMap;
 import java.util.Map;
 

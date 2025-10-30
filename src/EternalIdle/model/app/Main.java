@@ -1,6 +1,6 @@
 package EternalIdle;
 
-import EternalIdle.systems.GameManager;
+import EternalIdle.model.systems.GameManager;
 import java.util.Scanner;
 
 public class Main {

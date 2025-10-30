@@ -1,6 +1,6 @@
-package EternalIdle.inventory;
+package EternalIdle.model.inventory;
 
-import EternalIdle.items.Item;
+import EternalIdle.model.items.Item;
 import java.util.ArrayList;
 import java.util.List;
 

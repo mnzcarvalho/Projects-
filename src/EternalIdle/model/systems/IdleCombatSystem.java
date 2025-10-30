@@ -1,4 +1,4 @@
-package EternalIdle.systems;
+package EternalIdle.model.systems;
 
 public class IdleCombatSystem {
 }

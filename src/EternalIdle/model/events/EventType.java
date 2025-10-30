@@ -1,4 +1,4 @@
-package EternalIdle.events;
+package EternalIdle.model.events;
 
 public class EventType {
 }

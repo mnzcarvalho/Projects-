@@ -1,7 +1,7 @@
-package EternalIdle.crafting;
+package EternalIdle.model.crafting;
 
-import EternalIdle.items.Item;
-import EternalIdle.items.ItemRarity;
+import EternalIdle.model.items.Item;
+import EternalIdle.model.items.ItemRarity;
 
 public class CraftingMaterial extends Item {
     private MaterialType materialType;

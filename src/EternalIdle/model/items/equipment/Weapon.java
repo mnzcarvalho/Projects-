@@ -1,6 +1,6 @@
-package EternalIdle.items.equipment;
+package EternalIdle.model.items.equipment;
 
-import EternalIdle.items.ItemRarity;
+import EternalIdle.model.items.ItemRarity;
 
 public class Weapon extends Equipment {
     private int damage;

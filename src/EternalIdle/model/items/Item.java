@@ -1,4 +1,4 @@
-package EternalIdle.items;
+package EternalIdle.model.items;
 
 public abstract class Item {
     protected String name;

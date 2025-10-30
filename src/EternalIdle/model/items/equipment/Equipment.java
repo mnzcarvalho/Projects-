@@ -1,7 +1,7 @@
-package EternalIdle.items.equipment;
+package EternalIdle.model.items.equipment;
 
-import EternalIdle.items.Item;
-import EternalIdle.items.ItemRarity;
+import EternalIdle.model.items.Item;
+import EternalIdle.model.items.ItemRarity;
 
 public abstract class Equipment extends Item {
     protected int requiredLevel;

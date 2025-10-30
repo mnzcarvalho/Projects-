@@ -1,4 +1,4 @@
-package EternalIdle.statistics;
+package EternalIdle.model.statistics;
 
 public class StatTracker {
 }

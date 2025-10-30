@@ -1,7 +1,6 @@
-package EternalIdle.shop;
+package EternalIdle.model.shop;
 
-import EternalIdle.items.Item;
-import EternalIdle.items.ItemRarity;
+import EternalIdle.model.items.Item;
 
 public class ShopItem {
     private Item item;

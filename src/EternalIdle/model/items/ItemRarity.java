@@ -1,4 +1,4 @@
-package EternalIdle.items;
+package EternalIdle.model.items;
 
 public enum ItemRarity {
     COMMON("Comum"),

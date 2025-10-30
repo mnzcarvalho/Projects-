@@ -1,7 +1,7 @@
-package EternalIdle.bosses;
+package EternalIdle.model.bosses;
 
-import EternalIdle.entity.Player;
-import EternalIdle.rewards.BossReward;
+import EternalIdle.model.entity.Player;
+import EternalIdle.model.rewards.BossReward;
 import java.util.*;
 
 public class BossManager {
