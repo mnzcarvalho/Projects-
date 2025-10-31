@@ -167,24 +167,10 @@ Abas por tipo (Armas, Armaduras, Materiais)
 
 Sistema de drag & drop do inventário para stash
 
-🌳 Skills Tree Visual (3-4 horas)
-SkillsController.java + skills.fxml
 
-Árvore de habilidades interativa
-
-Nós clicáveis com conexões visuais
-
-🔨 Crafting Visual (3-4 horas)
-CraftingController.java + crafting.fxml
-
-Grid de receitas disponíveis
-
-Sistema de arrastar materiais
-
-🐉 Bosses Visual (2-3 horas)
+🐉 Bosses Visual - dungeon
 BossController.java + bosses.fxml
 
-Lista de bosses disponíveis
+1 boss disponivel
 
 Barra de vida especial para bosses
-

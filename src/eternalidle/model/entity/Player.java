@@ -96,8 +96,21 @@ public class Player {
         return equipmentManager;
     }
 
+    // 🔥 MÉTODO CORRIGIDO PARA EQUIPAR ITENS
     public boolean equipItem(Equipment equipment) {
-        return equipmentManager.equip(equipment, level);
+        // Verifica se o item está no inventário
+        if (playerInventory.getItems().contains(equipment)) {
+            boolean equipped = equipmentManager.equip(equipment, level);
+            if (equipped) {
+                // 🔥 REMOVE O ITEM DO INVENTÁRIO APÓS EQUIPAR
+                playerInventory.removeItem(equipment);
+                System.out.println("✅ " + equipment.getName() + " equipado e removido do inventário!");
+                return true;
+            }
+        } else {
+            System.out.println("❌ Item não encontrado no inventário: " + equipment.getName());
+        }
+        return false;
     }
 
     public void displayEquipment() {

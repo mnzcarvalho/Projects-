@@ -300,12 +300,6 @@ public class GameController {
         }
     }
 
-    public void openStash() {
-        logToCombat("🏠 Acessando stash...");
-        gameManager.openStash();
-        logToCombat("📦 Sistema de stash visual em desenvolvimento...");
-    }
-
     public void openCrafting() {
         logToCombat("🔨 Acessando sistema de crafting...");
         gameManager.openCrafting();
@@ -349,5 +343,33 @@ public class GameController {
         return gameManager;
     }
 
+    public void openStash() {
+        logToCombat("🏠 Abrindo stash visual...");
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/eternalidle/view/stash.fxml"));
+            Parent stashRoot = loader.load();
+
+            StashController stashController = loader.getController();
+            stashController.setGameManager(gameManager);
+
+            Stage stashStage = new Stage();
+            stashController.setStashStage(stashStage);
+
+            stashStage.setTitle("Stash - Eternal Idle");
+            stashStage.setScene(new Scene(stashRoot, 600, 400));
+            stashStage.setResizable(false);
+            stashStage.show();
+
+            logToCombat("📦 Stash visual aberto!");
+
+        } catch (Exception e) {
+            System.err.println("❌ Erro ao abrir stash: " + e.getMessage());
+            e.printStackTrace();
+            logToCombat("❌ Erro ao abrir stash visual");
+            // Fallback para o console
+            gameManager.openStash();
+        }
+    }
 
 }

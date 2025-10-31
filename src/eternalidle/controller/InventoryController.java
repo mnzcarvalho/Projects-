@@ -13,17 +13,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.input.TransferMode;
 import javafx.stage.Stage;
 
 public class InventoryController {
 
     private GameManager gameManager;
     private Stage inventoryStage;
-
-    // 🔥 VARIÁVEIS PARA DRAG & DROP
-    private Item draggedItem = null;
-    private VBox draggedSlot = null;
 
     // Componentes da UI do inventário
     @FXML private Label inventoryTitle;
@@ -32,7 +27,7 @@ public class InventoryController {
     @FXML private VBox equipmentSlots;
     @FXML private Button closeButton;
 
-    // Slots de equipamento
+    // Slots de equipamento (vamos usar apenas a arma por enquanto)
     @FXML private VBox weaponSlot;
     @FXML private VBox helmetSlot;
     @FXML private VBox chestSlot;
@@ -119,6 +114,7 @@ public class InventoryController {
         updateEquipmentSlots();
     }
 
+    // 🔥 VERSÃO SIMPLES - APENAS CLIQUE DUPLO
     private VBox createItemSlot(Item item, int index) {
         VBox slot = new VBox();
         slot.setStyle("-fx-background-color: #4a4a4a; -fx-border-color: #666; -fx-border-radius: 5; -fx-padding: 5;");
@@ -130,110 +126,21 @@ public class InventoryController {
         Tooltip tooltip = new Tooltip(getItemTooltip(item));
         Tooltip.install(slot, tooltip);
 
-        // 🔥 DRAG & DROP
-        slot.setOnDragDetected(event -> {
-            if (item instanceof Equipment) {
-                draggedItem = item;
-                draggedSlot = slot;
-                slot.setStyle("-fx-background-color: #5a5a5a; -fx-border-color: #3498db; -fx-border-radius: 5; -fx-padding: 5;");
-                System.out.println("🚀 Iniciando drag: " + item.getName());
-            }
-            event.consume();
-        });
-
-        // Configurar slots de equipamento para receber drop
-        setupEquipmentSlotForDrop(weaponSlot, "weapon");
-
+        // 🔥 APENAS CLIQUE DUPLO - FUNCIONA SEM DRAG COMPLEXO
         slot.setOnMouseClicked(event -> onItemClicked(item, event));
+
         slot.getChildren().add(itemLabel);
         return slot;
     }
 
-    private void setupEquipmentSlotForDrop(VBox equipmentSlot, String slotType) {
-        if (equipmentSlot == null) return;
-
-        equipmentSlot.setOnDragOver(event -> {
-            if (draggedItem != null && draggedItem instanceof Equipment) {
-                Equipment equip = (Equipment) draggedItem;
-                if (canEquipInSlot(equip, slotType)) {
-                    event.acceptTransferModes(TransferMode.MOVE);
-                    equipmentSlot.setStyle("-fx-background-color: #27ae60; -fx-border-color: #2ecc71; -fx-border-radius: 5; -fx-padding: 10;");
-                }
-            }
-            event.consume();
-        });
-
-        equipmentSlot.setOnDragExited(event -> {
-            equipmentSlot.setStyle("-fx-background-color: #4a4a4a; -fx-border-color: #666; -fx-border-radius: 5; -fx-padding: 10;");
-            event.consume();
-        });
-
-        equipmentSlot.setOnDragDropped(event -> {
-            if (draggedItem != null && draggedItem instanceof Equipment) {
-                Equipment equip = (Equipment) draggedItem;
-                if (canEquipInSlot(equip, slotType)) {
-                    boolean equipped = gameManager.getPlayer().equipItem(equip);
-                    if (equipped) {
-                        System.out.println("✅ " + equip.getName() + " equipado via drag & drop!");
-                        updateInventoryDisplay();
-                        if (draggedSlot != null) {
-                            draggedSlot.setStyle("-fx-background-color: #4a4a4a; -fx-border-color: #666; -fx-border-radius: 5; -fx-padding: 5;");
-                        }
-                    }
-                }
-            }
-            event.setDropCompleted(true);
-            event.consume();
-        });
-    }
-
-    private boolean canEquipInSlot(Equipment equip, String slotType) {
-        if (equip instanceof Weapon && slotType.equals("weapon")) {
-            return true;
-        }
-        return false;
-    }
-
-    private String getItemAbbreviation(Item item) {
-        if (item instanceof Weapon) {
-            return "⚔️";
-        } else if (item instanceof Armor) {
-            return "🛡️";
-        } else {
-            return "📦";
-        }
-    }
-
-    private String getItemTooltip(Item item) {
-        StringBuilder tooltip = new StringBuilder();
-        tooltip.append(item.getName()).append("\n");
-        tooltip.append("Tipo: ").append(item.getClass().getSimpleName()).append("\n");
-        tooltip.append("Raridade: ").append(item.getRarity()).append("\n");
-
-        if (item instanceof Equipment) {
-            Equipment equip = (Equipment) item;
-            tooltip.append("Nível req: ").append(equip.getRequiredLevel()).append("\n");
-
-            if (item instanceof Weapon) {
-                Weapon weapon = (Weapon) item;
-                tooltip.append("Dano: ").append(weapon.getDamage()).append("\n");
-                tooltip.append("DPS: ").append(String.format("%.1f", weapon.getDPS()));
-            } else if (item instanceof Armor) {
-                Armor armor = (Armor) item;
-                tooltip.append("Defesa: ").append(armor.getDefense());
-            }
-        }
-
-        return tooltip.toString();
-    }
-
+    // 🔥 MÉTODO SIMPLES DE CLIQUE
     private void onItemClicked(Item item, MouseEvent event) {
-        if (item instanceof Equipment) {
+        if (event.getClickCount() == 2 && item instanceof Equipment) { // Clique duplo
             Equipment equipment = (Equipment) item;
             boolean equipped = gameManager.getPlayer().equipItem(equipment);
 
             if (equipped) {
-                System.out.println("✅ " + equipment.getName() + " equipado!");
+                System.out.println("✅ " + equipment.getName() + " equipado via clique duplo!");
                 showTempMessage("✅ " + equipment.getName() + " equipado!");
                 updateInventoryDisplay();
             } else {
@@ -243,65 +150,61 @@ public class InventoryController {
         }
     }
 
-    // 🔥 MÉTODOS DE DESEQUIPAR
+    // 🔥 MÉTODOS DE DESEQUIPAR - APENAS ARMA FUNCIONA
     @FXML
     private void handleUnequipWeapon() {
-        unequipItem("weapon");
+        unequipWeapon();
     }
 
     @FXML
     private void handleUnequipHelmet() {
-        unequipItem("helmet");
+        showTempMessage("🔨 Em desenvolvimento");
     }
 
     @FXML
     private void handleUnequipChest() {
-        unequipItem("chest");
+        showTempMessage("🔨 Em desenvolvimento");
     }
 
     @FXML
     private void handleUnequipGloves() {
-        unequipItem("gloves");
+        showTempMessage("🔨 Em desenvolvimento");
     }
 
     @FXML
     private void handleUnequipBoots() {
-        unequipItem("boots");
+        showTempMessage("🔨 Em desenvolvimento");
     }
 
-    private void unequipItem(String slotType) {
+    // 🔥 APENAS ARMA FUNCIONA
+    private void unequipWeapon() {
         if (gameManager == null) return;
 
         var equipmentManager = gameManager.getPlayer().getEquipmentManager();
-        boolean success = false;
 
-        switch (slotType) {
-            case "weapon":
-                if (equipmentManager.hasWeapon()) {
-                    Equipment weapon = equipmentManager.getCurrentWeapon();
-                    success = equipmentManager.unequipWeapon();
-                    if (success) {
-                        System.out.println("✅ " + weapon.getName() + " desequipado!");
-                        showTempMessage("✅ " + weapon.getName() + " desequipado!");
-                    }
-                }
-                break;
-        }
+        if (equipmentManager.hasWeapon()) {
+            Equipment weapon = equipmentManager.getCurrentWeapon();
+            boolean success = equipmentManager.unequipWeapon();
 
-        if (success) {
-            updateInventoryDisplay();
+            if (success) {
+                gameManager.getPlayerInventory().addItem(weapon);
+                System.out.println("✅ " + weapon.getName() + " desequipado!");
+                showTempMessage("✅ " + weapon.getName() + " desequipado!");
+                updateInventoryDisplay();
+            }
         } else {
-            System.out.println("❌ Nada para desequipar no slot: " + slotType);
-            showTempMessage("❌ Nada para desequipar");
+            System.out.println("❌ Nenhuma arma equipada");
+            showTempMessage("❌ Nenhuma arma equipada");
         }
     }
 
     private void setupEquipmentSlots() {
-        setupEquipmentSlotTooltip(weaponSlot, "Slot de Arma\nEquipe armas para aumentar seu dano");
-        setupEquipmentSlotTooltip(helmetSlot, "Slot de Capacete\nAumenta sua defesa");
-        setupEquipmentSlotTooltip(chestSlot, "Slot de Armadura\nProteção para o torso");
-        setupEquipmentSlotTooltip(glovesSlot, "Slot de Luvas\nProteção para as mãos");
-        setupEquipmentSlotTooltip(bootsSlot, "Slot de Botas\nProteção para os pés");
+        // Apenas tooltips básicas
+        setupEquipmentSlotTooltip(weaponSlot, "Slot de Arma\nClique duplo em uma arma para equipar");
+        setupEquipmentSlotTooltip(helmetSlot, "Slot de Capacete\nEm desenvolvimento");
+        setupEquipmentSlotTooltip(chestSlot, "Slot de Armadura\nEm desenvolvimento");
+        setupEquipmentSlotTooltip(glovesSlot, "Slot de Luvas\nEm desenvolvimento");
+        setupEquipmentSlotTooltip(bootsSlot, "Slot de Botas\nEm desenvolvimento");
     }
 
     private void setupEquipmentSlotTooltip(VBox slot, String text) {
@@ -311,11 +214,13 @@ public class InventoryController {
         }
     }
 
+    // 🔥 ATUALIZAÇÃO SIMPLES DOS SLOTS
     private void updateEquipmentSlots() {
         if (gameManager == null) return;
 
         var equipmentManager = gameManager.getPlayer().getEquipmentManager();
 
+        // APENAS ARMA FUNCIONA
         if (weaponLabel != null) {
             if (equipmentManager.hasWeapon()) {
                 Weapon weapon = equipmentManager.getCurrentWeapon();
@@ -330,6 +235,12 @@ public class InventoryController {
                 }
             }
         }
+
+        // OUTROS SLOTS EM DESENVOLVIMENTO
+        if (helmetLabel != null) helmetLabel.setText("Em desenvolvimento");
+        if (chestLabel != null) chestLabel.setText("Em desenvolvimento");
+        if (glovesLabel != null) glovesLabel.setText("Em desenvolvimento");
+        if (bootsLabel != null) bootsLabel.setText("Em desenvolvimento");
 
         if (unequipHelmetButton != null) unequipHelmetButton.setVisible(false);
         if (unequipChestButton != null) unequipChestButton.setVisible(false);
@@ -381,5 +292,40 @@ public class InventoryController {
                 }
             }).start();
         }
+    }
+
+    private String getItemAbbreviation(Item item) {
+        if (item instanceof Weapon) {
+            return "⚔️";
+        } else if (item instanceof Armor) {
+            return "🛡️";
+        } else {
+            return "📦";
+        }
+    }
+
+    private String getItemTooltip(Item item) {
+        StringBuilder tooltip = new StringBuilder();
+        tooltip.append(item.getName()).append("\n");
+        tooltip.append("Tipo: ").append(item.getClass().getSimpleName()).append("\n");
+        tooltip.append("Raridade: ").append(item.getRarity()).append("\n");
+
+        if (item instanceof Equipment) {
+            Equipment equip = (Equipment) item;
+            tooltip.append("Nível req: ").append(equip.getRequiredLevel()).append("\n");
+
+            if (item instanceof Weapon) {
+                Weapon weapon = (Weapon) item;
+                tooltip.append("Dano: ").append(weapon.getDamage()).append("\n");
+                tooltip.append("DPS: ").append(String.format("%.1f", weapon.getDPS()));
+            } else if (item instanceof Armor) {
+                Armor armor = (Armor) item;
+                tooltip.append("Defesa: ").append(armor.getDefense());
+            }
+        }
+
+        tooltip.append("\n\n🔧 Clique duplo para equipar");
+
+        return tooltip.toString();
     }
 }
