@@ -1,6 +1,8 @@
 package eternalidle.model.entity;
 
 import eternalidle.model.inventory.Inventory;
+import eternalidle.model.items.equipment.Armor;
+import eternalidle.model.items.equipment.Weapon;
 import eternalidle.model.statistics.PlayerStatistics;
 import eternalidle.model.systems.EquipmentManager;
 import eternalidle.model.items.equipment.Equipment;
@@ -96,23 +98,6 @@ public class Player {
         return equipmentManager;
     }
 
-    // 🔥 MÉTODO CORRIGIDO PARA EQUIPAR ITENS
-    public boolean equipItem(Equipment equipment) {
-        // Verifica se o item está no inventário
-        if (playerInventory.getItems().contains(equipment)) {
-            boolean equipped = equipmentManager.equip(equipment, level);
-            if (equipped) {
-                // 🔥 REMOVE O ITEM DO INVENTÁRIO APÓS EQUIPAR
-                playerInventory.removeItem(equipment);
-                System.out.println("✅ " + equipment.getName() + " equipado e removido do inventário!");
-                return true;
-            }
-        } else {
-            System.out.println("❌ Item não encontrado no inventário: " + equipment.getName());
-        }
-        return false;
-    }
-
     public void displayEquipment() {
         System.out.println("\n⚔️ === EQUIPAMENTO ===");
         equipmentManager.displayEquippedItems();
@@ -174,5 +159,72 @@ public class Player {
         // Por enquanto, vamos retornar null ou criar uma instância se necessário
         // Você precisará integrar o sistema de estatísticas ao Player
         return null;
+    }
+
+    // 🔥 NO Player.java, ADICIONE ESTES MÉTODOS:
+    public boolean equipItem(Equipment equipment) {
+        return equipmentManager.equip(equipment, this.level);
+    }
+
+    public boolean unequipWeapon() {
+        return equipmentManager.unequipWeapon();
+    }
+
+    public boolean unequipHelmet() {
+        return equipmentManager.unequipHelmet();
+    }
+
+    public boolean unequipChest() {
+        return equipmentManager.unequipChest();
+    }
+
+    public boolean unequipGloves() {
+        return equipmentManager.unequipGloves();
+    }
+
+    public boolean unequipBoots() {
+        return equipmentManager.unequipBoots();
+    }
+
+    // 🔥 GETTERS CORRETOS
+    public Weapon getCurrentWeapon() {
+        return equipmentManager.getCurrentWeapon();
+    }
+
+    public Armor getCurrentHelmet() {
+        return equipmentManager.getCurrentHelmet();
+    }
+
+    public Armor getCurrentChest() {
+        return equipmentManager.getCurrentChest();
+    }
+
+    public Armor getCurrentGloves() {
+        return equipmentManager.getCurrentGloves();
+    }
+
+    public Armor getCurrentBoots() {
+        return equipmentManager.getCurrentBoots();
+    }
+
+    // 🔥 VERIFICAÇÕES
+    public boolean hasWeapon() {
+        return equipmentManager.hasWeapon();
+    }
+
+    public boolean hasHelmet() {
+        return equipmentManager.hasHelmet();
+    }
+
+    public boolean hasChest() {
+        return equipmentManager.hasChest();
+    }
+
+    public boolean hasGloves() {
+        return equipmentManager.hasGloves();
+    }
+
+    public boolean hasBoots() {
+        return equipmentManager.hasBoots();
     }
 }

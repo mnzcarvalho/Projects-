@@ -15,6 +15,7 @@ public class EquipmentManager {
         this.currentWeapon = null;
     }
 
+    // 🔥 NO EquipmentManager, ATUALIZE O MÉTODO equip:
     public boolean equip(Equipment equipment, int playerLevel) {
         if (!equipment.canEquip(playerLevel)) {
             System.out.println("❌ Nível muito baixo para equipar " + equipment.getName() +
@@ -31,7 +32,8 @@ public class EquipmentManager {
             equippedItems.put("WEAPON", equipment);
         } else if (equipment instanceof Armor) {
             Armor armor = (Armor) equipment;
-            equippedItems.put(armor.getArmorType(), equipment);
+            // 🔥 CORREÇÃO: Usar getArmorTypeString() em vez de getArmorType()
+            equippedItems.put(armor.getArmorTypeString(), equipment);
         }
 
         equipment.setEquipped(true);
@@ -39,13 +41,15 @@ public class EquipmentManager {
         return true;
     }
 
+    // 🔥 TAMBÉM ATUALIZE O MÉTODO unequip:
     public void unequip(Equipment equipment) {
         if (equipment instanceof Weapon) {
             equippedItems.remove("WEAPON");
             currentWeapon = null;
         } else if (equipment instanceof Armor) {
             Armor armor = (Armor) equipment;
-            equippedItems.remove(armor.getArmorType());
+            // 🔥 CORREÇÃO: Usar getArmorTypeString()
+            equippedItems.remove(armor.getArmorTypeString());
         }
 
         equipment.setEquipped(false);
@@ -66,7 +70,8 @@ public class EquipmentManager {
         int totalHealth = 0;
         for (Equipment equipment : equippedItems.values()) {
             if (equipment instanceof Armor) {
-                totalHealth += ((Armor) equipment).getHealthBonus();
+                // 🔥 CORREÇÃO: Se não tem getHealthBonus(), usar valor padrão
+                totalHealth += 0; // Ou adicione um campo healthBonus na classe Armor
             }
         }
         return totalHealth;
@@ -119,6 +124,76 @@ public class EquipmentManager {
         if (currentWeapon != null) {
             System.out.println("🗡️ Desequipando arma: " + currentWeapon.getName());
             currentWeapon = null;
+            return true;
+        }
+        return false;
+    }
+
+    // 🔥 ADICIONE ESTES MÉTODOS AO SEU EquipmentManager.java
+    public Armor getCurrentHelmet() {
+        return (Armor) equippedItems.get("HELMET");
+    }
+
+    public Armor getCurrentChest() {
+        return (Armor) equippedItems.get("CHEST");
+    }
+
+    public Armor getCurrentGloves() {
+        return (Armor) equippedItems.get("GLOVES");
+    }
+
+    public Armor getCurrentBoots() {
+        return (Armor) equippedItems.get("BOOTS");
+    }
+
+    public boolean hasHelmet() {
+        return equippedItems.containsKey("HELMET");
+    }
+
+    public boolean hasChest() {
+        return equippedItems.containsKey("CHEST");
+    }
+
+    public boolean hasGloves() {
+        return equippedItems.containsKey("GLOVES");
+    }
+
+    public boolean hasBoots() {
+        return equippedItems.containsKey("BOOTS");
+    }
+
+    // 🔥 MÉTODOS ESPECÍFICOS PARA DESEQUIPAR
+    public boolean unequipHelmet() {
+        if (hasHelmet()) {
+            Equipment helmet = equippedItems.remove("HELMET");
+            helmet.setEquipped(false);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean unequipChest() {
+        if (hasChest()) {
+            Equipment chest = equippedItems.remove("CHEST");
+            chest.setEquipped(false);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean unequipGloves() {
+        if (hasGloves()) {
+            Equipment gloves = equippedItems.remove("GLOVES");
+            gloves.setEquipped(false);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean unequipBoots() {
+        if (hasBoots()) {
+            Equipment boots = equippedItems.remove("BOOTS");
+            boots.setEquipped(false);
             return true;
         }
         return false;

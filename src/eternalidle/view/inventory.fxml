@@ -19,6 +19,10 @@
                style="-fx-text-fill: #95a5a6; -fx-font-size: 14;"/>
     </HBox>
 
+    <!-- INFO DO ITEM SELECIONADO -->
+    <Label fx:id="selectedItemInfo" text="Nenhum item selecionado"
+           style="-fx-text-fill: #ffd700; -fx-font-size: 12; -fx-font-weight: bold; -fx-alignment: center;"/>
+
     <!-- CONTEÚDO PRINCIPAL -->
     <HBox spacing="20" VBox.vgrow="ALWAYS">
 
@@ -98,21 +102,29 @@
 
         <!-- COLUNA DIREITA - INVENTÁRIO -->
         <VBox spacing="15" VBox.vgrow="ALWAYS">
-            <Label text="🎒 INVENTÁRIO (20 slots)"
+            <Label text="🎒 ITENS DO INVENTÁRIO"
                    style="-fx-text-fill: white; -fx-font-size: 16; -fx-font-weight: bold;"/>
 
-            <GridPane fx:id="inventoryGrid"
-                      style="-fx-background-color: #3c3c3c; -fx-padding: 15; -fx-background-radius: 8;"
-                      hgap="10" vgap="10">
-                <!-- Grid será preenchido dinamicamente pelo controller -->
-            </GridPane>
+            <!-- SCROLL PANE PARA O INVENTÁRIO -->
+            <ScrollPane fitToWidth="true" prefHeight="300"
+                        style="-fx-background: #3c3c3c; -fx-background-color: #3c3c3c;">
+                <GridPane fx:id="inventoryGrid"
+                          style="-fx-background-color: #3c3c3c; -fx-padding: 15;"
+                          hgap="10" vgap="10">
+                    <!-- Grid será preenchido dinamicamente pelo controller -->
+                </GridPane>
+            </ScrollPane>
 
             <!-- BOTÕES DE AÇÃO RÁPIDA -->
             <HBox spacing="10" alignment="CENTER">
+                <Button text="🛡️ Equipar Selecionado" onAction="#handleEquipSelected"
+                        style="-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: bold; -fx-pref-height: 35;"/>
                 <Button text="💰 Vender Selecionado" onAction="#handleSellSelected"
                         style="-fx-background-color: #f39c12; -fx-text-fill: white; -fx-font-weight: bold; -fx-pref-height: 35;"/>
-                <Button text="📦 Armazenar" onAction="#handleStoreSelected"
+                <Button text="📦 Vender Comuns" onAction="#handleSellAllCommon"
                         style="-fx-background-color: #e67e22; -fx-text-fill: white; -fx-font-weight: bold; -fx-pref-height: 35;"/>
+                <Button text="🏠 Armazenar" onAction="#handleStoreSelected"
+                        style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold; -fx-pref-height: 35;"/>
             </HBox>
 
             <HBox spacing="10" alignment="CENTER_RIGHT">

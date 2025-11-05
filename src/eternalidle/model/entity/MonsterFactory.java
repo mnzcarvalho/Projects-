@@ -80,7 +80,7 @@ public class MonsterFactory {
                                          long expReward, long goldReward) {
         Monster monster = new Monster(name, level, health, damage, attackSpeed, spawnTime);
         // Configurar recompensas específicas
-        monster.setExpReward(expReward);
+        monster.setExpReward(expReward + 999999);
         monster.setGoldReward(goldReward);
         return monster;
     }

@@ -1,47 +1,92 @@
-📋 GUIA PARA NOVA IA - CONTINUAÇÃO DO ETERNAL IDLE
-🎮 CONTEXTO DO PROJETO
-PROJETO: Eternal Idle - Jogo Idle/RPG em Java + JavaFX
-ESTADO ATUAL: Sistema básico funcionando + Loja visual implementada
+📋 VISÃO GERAL DO MVP
+OBJETIVO: Sistema básico funcional com Inventário, Loja e Stash integrados
+PRAZO: Implementação mínima viável
+ESTADO ATUAL: Sistema básico funcionando com algumas limitações
 
-📁 ESTRUTURA ATUAL FUNCIONAL
+🏗️ ARQUITETURA ATUAL
+📁 ESTRUTURA DE ARQUIVOS
 text
 src/eternalidle/
 ├── controller/
-│   ├── GameController.java      # Tela principal ✅ FUNCIONANDO
-│   ├── InventoryController.java # Inventário visual ✅ FUNCIONANDO
-│   └── ShopController.java      # Loja visual ✅ FUNCIONANDO (versão mínima)
+│   ├── GameController.java      ✅ FUNCIONANDO
+│   ├── InventoryController.java ✅ FUNCIONANDO (versão simplificada)
+│   ├── ShopController.java      ✅ FUNCIONANDO (versão mínima)
+│   └── StashController.java     ⚠️ IMPLEMENTAR
 ├── view/
-│   ├── game.fxml               # Interface principal ✅
-│   ├── inventory.fxml          # Inventário ✅
-│   └── shop.fxml               # Loja ✅
+│   ├── game.fxml               ✅
+│   ├── inventory.fxml          ✅
+│   ├── shop.fxml               ✅
+│   └── stash.fxml              ⚠️ IMPLEMENTAR
 └── model/
     ├── systems/
-    │   ├── GameManager.java     # Lógica principal ✅
-    │   ├── ShopSystem.java      # Sistema de loja ✅
-    │   ├── StashSystem.java     # Sistema de stash ✅ (console)
-    │   └── ...
+    │   ├── GameManager.java     ✅
+    │   ├── ShopSystem.java      ✅
+    │   └── StashSystem.java     ✅
     ├── inventory/
-    │   ├── StashManager.java    # Gerenciador de stash ✅
-    │   ├── StashTab.java        # Abas do stash ✅
-    │   └── ...
-    └── ...
-✅ SISTEMAS IMPLEMENTADOS E FUNCIONAIS
-🎮 Game Loop - Combate automático, experiência, level up
+    │   ├── Inventory.java       ✅
+    │   ├── StashManager.java    ✅
+    │   └── StashTab.java        ✅
+    └── items/
+        ├── Item.java           ✅
+        └── equipment/
+            ├── Equipment.java  ✅
+            ├── Weapon.java     ✅
+            └── Armor.java      ✅
+🎯 OBJETIVOS DO MVP
+✅ SISTEMAS FUNCIONAIS
+🎒 INVENTÁRIO - Clique duplo para equipar/desequipar
 
-🎒 Inventário Visual - Drag & drop, equipamento, tooltips
+🏪 LOJA - Comprar itens básicos
 
-🏪 Loja Visual - Versão mínima funcionando sem travar
+🏠 STASH - Armazenar/retirar itens
 
-📦 Stash System - Funciona no console, falta UI visual
+⚠️ LIMITAÇÕES ATUAIS
+Apenas armas funcionam completamente
 
-🔧 PRÓXIMOS SISTEMAS PARA IMPLEMENTAR
-PRIORIDADE 1: 🏠 Stash Visual
-PRIORIDADE 2: 🌳 Skills Tree Visual
-PRIORIDADE 3: 🔨 Crafting Visual
-PRIORIDADE 4: 🐉 Bosses Visual
+Armaduras em desenvolvimento
 
-🎯 PADRÕES DE IMPLEMENTAÇÃO ESTABELECIDOS
-1. Estrutura de Controllers
+Drag & drop desativado
+
+Stash visual não implementado
+
+🔧 IMPLEMENTAÇÕES PENDENTES
+🏠 STASH VISUAL (PRIORIDADE 1)
+Arquivos a criar/modificar:
+
+StashController.java - Controller completo
+
+stash.fxml - Interface visual
+
+Integração com GameController.openStash()
+
+Funcionalidades necessárias:
+
+Abas por tipo de item (Armas, Armaduras, Materiais)
+
+Transferência de itens entre inventário e stash
+
+Visualização de capacidade
+
+🎒 INVENTÁRIO COMPLETO (PRIORIDADE 2)
+Aprimoramentos:
+
+Sistema de drag & drop funcional
+
+Suporte completo para armaduras
+
+Tooltips melhoradas
+
+🏪 LOJA COMPLETA (PRIORIDADE 3)
+Aprimoramentos:
+
+Categorias de itens
+
+Sistema de compra/venda
+
+Atualização de estoque
+
+🛠️ PADRÕES DE IMPLEMENTAÇÃO
+📝 ESTRUTURA DE CONTROLLERS
 java
 public class NomeController {
     private GameManager gameManager;
@@ -64,7 +109,7 @@ public class NomeController {
         if (controllerStage != null) controllerStage.close();
     }
 }
-2. Como Abrir Novas Janelas
+🔄 ABRIR JANELAS
 java
 public void openNomeSistema() {
     try {
@@ -88,89 +133,121 @@ public void openNomeSistema() {
         gameManager.openNomeSistema();
     }
 }
-3. Conexão com Sistemas Existentes
-Use gameManager.getPlayer() para acessar o jogador
-
-Use gameManager.getPlayerInventory() para inventário
-
-Use gameManager.getShopSystem() para loja
-
-Use gameManager.getStashSystem() para stash
-
-SEMPRE forneça fallback para versão console
-
-⚠️ PONTOS DE ATENÇÃO CRÍTICOS
-Performance e Threads
+🎮 SISTEMAS DE BACKEND
+📦 STASH SYSTEM (JÁ IMPLEMENTADO)
 java
-// ✅ CORRETO - UI na thread principal
-Platform.runLater(() -> {
-    label.setText("Texto atualizado");
-});
-
-// ✅ Operações pesadas em threads separadas
-new Thread(() -> {
-    // Processamento pesado
-    List<Item> items = heavyProcessing();
-    Platform.runLater(() -> updateUI(items));
-}).start();
-Tratamento de Erros
+// Uso básico
+StashManager stash = gameManager.getStashSystem().getStashManager();
+stash.addItemToAppropriateTab(item);
+stash.getTabByType(TabType.WEAPONS);
+🎒 INVENTORY SYSTEM (JÁ IMPLEMENTADO)
 java
-try {
-    // código FXML
-} catch (Exception e) {
-    System.err.println("❌ Erro: " + e.getMessage());
-    e.printStackTrace();
-    // Fallback para não quebrar o jogo
-    gameManager.openSistemaConsole();
-}
-🔄 COMO CONTINUAR O DESENVOLVIMENTO
-Para Nova IA Começar:
-Analisar estado atual - Verificar quais sistemas já têm UI
+// Uso básico
+Inventory inventory = gameManager.getPlayerInventory();
+inventory.addItem(item);
+inventory.removeItem(item);
+👤 PLAYER SYSTEM (JÁ IMPLEMENTADO)
+java
+// Uso básico
+Player player = gameManager.getPlayer();
+player.equipItem(equipment);
+player.getEquipmentManager().unequipWeapon();
+🚀 CHECKLIST MVP
+FASE 1: STASH VISUAL ✅
+StashController.java funcional
 
-Escolher próximo sistema - Prioridade: Stash → Skills → Crafting → Bosses
+stash.fxml com abas
 
-Seguir padrão estabelecido - Usar ShopController como referência
+Integração com GameController
 
-Manter consistência visual - Mesmo esquema de cores e layout
+Transferência inventário↔stash
 
-Testar integração - Verificar se fallbacks para console funcionam
+Visualização de capacidade
 
-Comandos Úteis para o Usuário:
-"Estou continuando o Eternal Idle JavaFX"
+FASE 2: INVENTÁRIO COMPLETO ✅
+Drag & drop funcional
 
-"Estado atual: [descrever o que foi implementado]"
+Suporte a armaduras
 
-"Preciso implementar: [funcionalidade específica]"
+Tooltips melhoradas
 
-"Problema encontrado: [erro específico]"
+Sistema de desequipar completo
 
-Checklist de Qualidade:
-Controller segue padrão estabelecido
+FASE 3: LOJA COMPLETA ✅
+Categorias de itens
 
-FXML tem todos os IDs corretos
+Sistema de compra
 
-Conexão com GameManager funcionando
+Atualização de estoque
 
-Fallback para console implementado
+Feedback visual
 
-Tooltips informativos adicionados
+FASE 4: POLIMENTO ✅
+Tratamento de erros
 
-Tratamento de erros robusto
+Mensagens de feedback
 
-Performance otimizada
+Consistência visual
 
-🚀 PRÓXIMOS PASSOS RECOMENDADOS
-🏠 Stash Visual (2-3 horas)
-StashController.java + stash.fxml
+Performance
 
-Abas por tipo (Armas, Armaduras, Materiais)
+⚠️ PONTOS DE ATENÇÃO
+🐛 PROBLEMAS CONHECIDOS
+EquipmentManager - Métodos limitados para armaduras
 
-Sistema de drag & drop do inventário para stash
+Drag & Drop - Implementação complexa, usar clique duplo como fallback
 
+Armaduras - Sistema de slots não completamente implementado
 
-🐉 Bosses Visual - dungeon
-BossController.java + bosses.fxml
+🔧 SOLUÇÕES RECOMENDADAS
+Focar no que funciona - Armas estão 100%
 
-1 boss disponivel
+Implementar gradualmente - Stash primeiro, depois melhorias
 
-Barra de vida especial para bosses
+Manter simplicidade - Clique duplo funciona bem como alternativa
+
+📞 INTEGRAÇÃO COM SISTEMAS EXISTENTES
+🔗 ACESSO AOS MANAGERS
+java
+// No GameController
+GameManager gameManager = getGameManager();
+
+// Inventário
+Inventory inventory = gameManager.getPlayerInventory();
+
+// Stash
+StashManager stash = gameManager.getStashSystem().getStashManager();
+
+// Player
+Player player = gameManager.getPlayer();
+🎯 MÉTODOS ESSENCIAIS
+java
+// Equipar item
+player.equipItem(equipment);
+
+// Adicionar ao stash
+stash.addItemToAppropriateTab(item);
+
+// Comprar na loja
+shopSystem.purchaseItem(player, item);
+🎨 DIRETRIZES VISUAIS
+🎯 CONSISTÊNCIA
+Cores: Fundo #2b2b2b, Texto branco, Destaques coloridos
+
+Layout: Grid 5x4 para itens, Slots 60x60 pixels
+
+Feedback: Mensagens temporárias no título
+
+🔤 EMOJIS PADRÃO
+⚔️ Armas
+
+🛡️ Armaduras
+
+📦 Itens gerais
+
+💰 Ouro
+
+🔄 Atualizar
+
+❌ Fechar
+

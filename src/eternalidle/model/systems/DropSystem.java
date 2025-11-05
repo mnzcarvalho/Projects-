@@ -21,8 +21,8 @@ public class DropSystem {
         List<Item> drops = new ArrayList<>();
 
         // Ouro sempre dropa (quantidade baseada no nível)
-        int goldAmount = monsterLevel * 5 + random.nextInt(monsterLevel * 3);
-        drops.add(new Gold(goldAmount));
+//        int goldAmount = monsterLevel * 5 + random.nextInt(monsterLevel * 3);
+//        drops.add(new Gold(goldAmount));
 
         // Chance de drop de itens baseada no nível do monstro
         double itemDropChance = 0.3 + (monsterLevel * 0.03); // 🔥 30% + 3% por nível
@@ -32,7 +32,7 @@ public class DropSystem {
         }
 
         // Chance menor para poção
-        if (random.nextDouble() < 0.2) { // 🔥 20% de chance (era 30%)
+        if (random.nextDouble() < 0.0001) { // 🔥 20% de chance (era 30%)
             drops.add(generatePotion(monsterLevel));
         }
         System.out.println("🎲 Gerando drops para " + monsterName + " nível " + monsterLevel);
@@ -49,8 +49,6 @@ public class DropSystem {
                 return generateWeapon(monsterLevel);
             case 1: // Armadura
                 return generateArmor(monsterLevel);
-            case 2: // Poção especial
-                return generateSpecialPotion(monsterLevel);
             default:
                 return generateWeapon(monsterLevel);
         }

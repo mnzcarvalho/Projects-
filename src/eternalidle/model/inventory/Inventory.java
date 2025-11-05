@@ -1,72 +1,75 @@
 package eternalidle.model.inventory;
 
 import eternalidle.model.items.Item;
-import eternalidle.model.items.currency.Gold;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
 
 public class Inventory {
     private List<Item> items;
     private int capacity;
-    private int gold;
 
     public Inventory(int capacity) {
         this.capacity = capacity;
         this.items = new ArrayList<>();
-        this.gold = 0;
+    }
+
+    // 🔥 MÉTODO ADICIONADO: setCapacity()
+    public void setCapacity(int newCapacity) {
+        // Verificar se a nova capacidade é válida
+        if (newCapacity < this.items.size()) {
+            System.out.println("⚠️ Não é possível reduzir capacidade abaixo do número atual de itens: " + this.items.size());
+            return;
+        }
+
+        this.capacity = newCapacity;
+        System.out.println("✅ Capacidade do inventário aumentada para: " + newCapacity);
+    }
+
+    // 🔥 MÉTODO ADICIONADO: increaseCapacity() - alternativa mais segura
+    public void increaseCapacity(int additionalSlots) {
+        if (additionalSlots > 0) {
+            this.capacity += additionalSlots;
+            System.out.println("✅ +" + additionalSlots + " slots | Capacidade total: " + this.capacity);
+        }
+    }
+
+    // Métodos existentes
+    public void displayInventory() {
+        System.out.println("🎒 INVENTÁRIO (" + items.size() + "/" + capacity + " slots):");
+
+        if (items.isEmpty()) {
+            System.out.println("   (vazio)");
+            return;
+        }
+
+        for (int i = 0; i < items.size(); i++) {
+            Item item = items.get(i);
+            System.out.println("   " + (i + 1) + ". " + item.getName() +
+                    " [" + item.getRarity() + "]");
+        }
+    }
+
+    public boolean removeItem(Item item) {
+        return items.remove(item);
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public boolean isFull() {
+        return items.size() >= capacity;
     }
 
     public boolean addItem(Item item) {
         if (items.size() < capacity) {
-            // 🔥 CORREÇÃO: Se for ouro, soma direto ao gold em vez de add ao inventário
-            if (item instanceof Gold) {
-                Gold goldItem = (Gold) item;
-                addGold(goldItem.getAmount());
-                System.out.println("💰 +" + goldItem.getAmount() + " ouro adicionado!");
-                return true;
-            } else {
-                items.add(item);
-                System.out.println("🎒 " + item.getName() + " adicionado ao inventário!");
-                return true;
-            }
-        } else {
-            System.out.println("❌ Inventário cheio! Não foi possível adicionar " + item.getName());
-            return false;
+            items.add(item);
+            return true;
         }
+        return false;
     }
-
-    public void addGold(int amount) {
-        this.gold += amount;
-    }
-
-    public void removeItem(Item item) {
-        items.remove(item);
-    }
-
-    public void displayInventory() {
-        System.out.println("\n=== INVENTÁRIO ===");
-        System.out.println("💰 Ouro: " + gold); // 🔥 Agora mostra o ouro correto
-        System.out.println("🎒 Itens (" + items.size() + "/" + capacity + "):");
-
-        if (items.isEmpty()) {
-            System.out.println("  (vazio)");
-        } else {
-            for (int i = 0; i < items.size(); i++) {
-                System.out.print("  " + (i + 1) + ". ");
-                items.get(i).displayInfo();
-            }
-        }
-        System.out.println("==================\n");
-    }
-
-    public void setCapacity(int newCapacity) {
-        this.capacity = newCapacity;
-        System.out.println("📦 Inventário expandido para " + newCapacity + " slots!");
-    }
-
-    // Getters - 🔥 REMOVI A CHAVE EXTRA DAQUI!
-    public List<Item> getItems() { return items; }
-    public int getGold() { return gold; }
-    public int getCapacity() { return capacity; }
 }
-// 🔥 SÓ UMA CHAVE DE FECHAMENTO NO FINAL!

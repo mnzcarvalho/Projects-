@@ -1,107 +1,89 @@
 package eternalidle.model.inventory;
 
 import eternalidle.model.items.Item;
-import eternalidle.model.items.equipment.Weapon;
-import eternalidle.model.items.equipment.Armor;
-import eternalidle.model.items.consumable.Potion;
-import eternalidle.model.items.currency.Gold;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
 
 public class StashTab {
     private TabType tabType;
     private List<Item> items;
     private int capacity;
-    private boolean isUnlocked;
-    private String tabName;
+    private boolean unlocked;
 
-    public StashTab(TabType tabType, int capacity, boolean isUnlocked) {
+    public StashTab(TabType tabType, int capacity) {
         this.tabType = tabType;
         this.capacity = capacity;
-        this.isUnlocked = isUnlocked;
         this.items = new ArrayList<>();
-        this.tabName = tabType.getName();
+        this.unlocked = tabType.isUnlocked(); // Usa o método do enum
     }
 
-    public StashTab(String customName, int capacity, boolean isUnlocked) {
-        this.tabType = TabType.ALL;
-        this.capacity = capacity;
-        this.isUnlocked = isUnlocked;
-        this.items = new ArrayList<>();
-        this.tabName = customName;
+    // 🔥 MÉTODO 1: isUnlocked()
+    public boolean isUnlocked() {
+        return this.unlocked;
     }
 
-    public boolean addItem(Item item) {
-        if (items.size() >= capacity) {
-            return false;
+    // 🔥 MÉTODO 2: getTabName()
+    public String getTabName() {
+        return this.tabType.getName();
+    }
+
+    // 🔥 MÉTODO 3: displayTab()
+    public void displayTab() {
+        System.out.println(this.tabType.getEmoji() + " " + this.getTabName().toUpperCase() +
+                " (" + this.items.size() + "/" + this.capacity + "):");
+        System.out.println("─".repeat(50));
+
+        if (this.items.isEmpty()) {
+            System.out.println("   (vazio)");
+            return;
         }
 
-        // Verificar se o item pertence a esta tab
-        if (canStoreItem(item)) {
-            items.add(item);
-            return true;
+        for (int i = 0; i < this.items.size(); i++) {
+            Item item = this.items.get(i);
+            System.out.printf("   %2d. %-20s [%s]%n",
+                    (i + 1), item.getName(), item.getRarity());
         }
-
-        return false;
     }
 
-    public boolean removeItem(Item item) {
-        return items.remove(item);
+    // 🔥 MÉTODO ADICIONAL: unlock()
+    public void unlock() {
+        this.unlocked = true;
     }
 
-    public boolean canStoreItem(Item item) {
-        if (tabType == TabType.ALL) return true;
+    // Métodos existentes
+    public TabType getTabType() {
+        return tabType;
+    }
 
-        return switch(tabType) {
-            case WEAPONS -> item instanceof Weapon;
-            case ARMOR -> item instanceof Armor;
-            case CONSUMABLES -> item instanceof Potion;
-            case MATERIALS -> item instanceof Gold; // Materiais de crafting
-            case SPECIAL -> item.getRarity().ordinal() >= 3; // Raro ou melhor
-            default -> true;
-        };
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(int newCapacity) {
+        if (newCapacity < this.items.size()) {
+            System.out.println("⚠️ Não é possível reduzir capacidade abaixo do número atual de itens: " + this.items.size());
+            return;
+        }
+        this.capacity = newCapacity;
     }
 
     public boolean isFull() {
         return items.size() >= capacity;
     }
 
-    public int getUsedSlots() {
-        return items.size();
-    }
-
-    public int getFreeSlots() {
-        return capacity - items.size();
-    }
-
-    public void displayTab() {
-        String status = isUnlocked ? "✅" : "🔒";
-        System.out.println("\n" + status + " " + tabType.getEmoji() + " " + tabName + " (" + getUsedSlots() + "/" + capacity + ")");
-        System.out.println("   " + tabType.getDescription());
-
-        if (!isUnlocked) {
-            System.out.println("   🔒 Tab trancada - Desbloqueie na loja!");
-            return;
+    public boolean addItem(Item item) {
+        if (items.size() < capacity && unlocked) {
+            items.add(item);
+            return true;
         }
-
-        if (items.isEmpty()) {
-            System.out.println("   (vazia)");
-        } else {
-            for (int i = 0; i < items.size(); i++) {
-                System.out.print("   " + (i + 1) + ". ");
-                items.get(i).displayInfo();
-            }
-        }
+        return false;
     }
 
-    // Getters
-    public TabType getTabType() { return tabType; }
-    public List<Item> getItems() { return items; }
-    public int getCapacity() { return capacity; }
-    public boolean isUnlocked() { return isUnlocked; }
-    public String getTabName() { return tabName; }
-
-    // Setters
-    public void setUnlocked(boolean unlocked) { this.isUnlocked = unlocked; }
-    public void setCapacity(int capacity) { this.capacity = capacity; }
+    public boolean removeItem(Item item) {
+        return items.remove(item);
+    }
 }

@@ -12,6 +12,17 @@ public abstract class Item {
         this.value = value;
         this.rarity = rarity;
     }
+    // 🔥 MÉTODO ADICIONADO: getSellValue()
+    public int getSellValue() {
+        // Itens vendem por 50% do valor de compra
+        return Math.max(1, value / 2);
+    }
+
+    // 🔥 MÉTODO ADICIONADO: getSellValue com bônus
+    public int getSellValue(double bonusMultiplier) {
+        int baseValue = getSellValue();
+        return (int) Math.max(1, baseValue * bonusMultiplier);
+    }
 
     // Getters
     public String getName() { return name; }
