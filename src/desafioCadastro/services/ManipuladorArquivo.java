@@ -1,4 +1,4 @@
-package desafioCadastro;
+package desafioCadastro.services;
 
 import java.io.*;
 
@@ -11,6 +11,7 @@ public class ManipuladorArquivo {
          BufferedReader leitor = new BufferedReader(fr);) {
         while (((linha = leitor.readLine()) != null)){
             System.out.println(linha);
+
         }
     } catch (IOException e) {
         throw new IOException(e);
