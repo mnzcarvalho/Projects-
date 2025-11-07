@@ -11,7 +11,7 @@ O sistema CityFlow simula o tráfego de uma cidade. Os veículos (carros, motos,
 
 ## SISTEMA GESTÃO DE PEDIDOS
 
-![img.png](img.png)
+![img.png](src/img.png)
 
 
 ## Mini iFood - Projeto POO Java
@@ -38,7 +38,7 @@ Sistema de raridade e drops de monstros
 Combate automático, evolução de personagem, coleta de equipamentos e desafios progressivos em uma experiência RPG incremental envolvente!
 
 (em desenvolvimento)
-![img_1.png](img_1.png)
+![img_1.png](src/img_1.png)
 
 ## Desafio PROGRAMAÇÃO - Sistema de Cadastros 🚀
 
