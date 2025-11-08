@@ -1,4 +1,4 @@
-# Projetos para estudos.
+# Projetos para estudos
 
 ## 🚦 CityFlow - Simulador de Tráfego Urbano
 
