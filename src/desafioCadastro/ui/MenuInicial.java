@@ -1,5 +1,9 @@
 package desafioCadastro.ui;
 
+import desafioCadastro.model.Pet;
+import desafioCadastro.services.ManipuladorArquivo;
+
+import java.io.IOException;
 import java.util.Scanner;
 
 public class MenuInicial {
@@ -24,7 +28,7 @@ public class MenuInicial {
                 int opcaoNum = Integer.parseInt(opcao);
 
                 switch (opcaoNum) {
-                    case 1:  break;
+                    case 1: cadastrarPet(); break;
                     case 2:  break;
                     case 3:  break;
                     case 4:  break;
@@ -39,6 +43,22 @@ public class MenuInicial {
             } catch (NumberFormatException e) {
                 System.out.println("Por favor, digite um número válido!");
             }
+        }
+    }
+
+    public static void cadastrarPet(){
+        ManipuladorArquivo novoPet = new ManipuladorArquivo();
+
+        try {
+            novoPet.leitorArquivo();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        Pet pet = new Pet();
+        for (int i = 0; i < novoPet.getDadosPet().size(); i++) {
+            System.out.println(novoPet.getDadosPet().get(i));
+            if (i == 0){}
         }
     }
 }
