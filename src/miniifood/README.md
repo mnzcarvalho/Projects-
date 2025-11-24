@@ -455,7 +455,7 @@ Método adicional: atualizarDataModificacao() - atualiza dataAtualizacao para ag
 
 ## 🎨 FORMATADORES (Tasks 29 a 33)
 
-### **Task 29 - Formatador de CPF**
+### **Task 29 - pooP2.util.Formatador de CPF**
 - Criar classe `FormatadorCPF` com método estático `formatar(String cpf)`
 - **Funcionalidade:**
     - Receber CPF sem formatação (apenas números)
@@ -469,7 +469,7 @@ Saída: `123.456.789-09`
 
 ---
 
-### **Task 30 - Formatador de CNPJ**
+### **Task 30 - pooP2.util.Formatador de CNPJ**
 - Criar classe `FormatadorCNPJ` com método estático `formatar(String cnpj)`
 - **Funcionalidade:**
     - Receber CNPJ sem formatação (apenas números)
@@ -483,7 +483,7 @@ Saída: `11.222.333/0001-81`
 
 ---
 
-### **Task 31 - Formatador de Telefone**
+### **Task 31 - pooP2.util.Formatador de Telefone**
 - Criar classe `FormatadorTelefone` com método estático `formatar(String telefone)`
 - **Funcionalidade:**
     - Receber telefone sem formatação (apenas números)
@@ -498,7 +498,7 @@ Entrada: `81988887777` → Saída: `(81) 9 8888-7777`
 
 ---
 
-### **Task 32 - Formatador de Moeda**
+### **Task 32 - pooP2.util.Formatador de Moeda**
 - Criar classe `FormatadorMoeda` com método estático `formatar(double valor)`
 - **Funcionalidade:**
     - Receber valor numérico (ex: 10.5)
@@ -518,7 +518,7 @@ Entrada: `1234.56` → Saída: `R$ 1.234,56`
 
 ---
 
-### **Task 33 - Formatador de Data/Hora**
+### **Task 33 - pooP2.util.Formatador de Data/Hora**
 - Criar classe `FormatadorDataHora` com métodos estáticos:
     - `formatarData(LocalDate data)` → retorna **DD/MM/YYYY**
     - `formatarHora(LocalTime hora)` → retorna **HH:MM**
