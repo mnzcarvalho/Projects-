@@ -5,6 +5,8 @@ import desafioCadastro.utils.ValidacaoUtils;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Pet {
     private String nomeCompleto;
@@ -15,9 +17,11 @@ public class Pet {
     private double peso;
     private String raca;
     private LocalDateTime dataCadastro;
+    private List<String> respostasExtras; // Adicione esta linha
 
     public Pet() {
         this.dataCadastro = LocalDateTime.now();
+        this.respostasExtras = new ArrayList<>(); // Inicialize a lista
     }
 
     public Pet(String nomeCompleto, TipoPet tipo, SexoPet sexo, Endereco endereco,
@@ -30,6 +34,7 @@ public class Pet {
         setPeso(peso);
         setRaca(raca);
         this.dataCadastro = LocalDateTime.now();
+        this.respostasExtras = new ArrayList<>(); // Inicialize a lista
     }
 
 
@@ -52,8 +57,9 @@ public class Pet {
     public void setSexo(SexoPet sexo) { this.sexo = sexo; }
 
     public Endereco getEndereco() { return endereco; }
-    public void setEndereco(Endereco endereco) { this.endereco = endereco; }
-
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
     public double getIdade() { return idade; }
 
     public void setIdade(double idade) {
@@ -89,6 +95,20 @@ public class Pet {
         String nomeArquivo = nomeCompleto.toUpperCase().replace(" ", "");
         return dataFormatada + "-" + nomeArquivo + ".txt";
     }
+
+    public void setDataCadastro(LocalDateTime dataCadastro) {
+        this.dataCadastro = dataCadastro;
+    }
+
+    public void adicionarRespostaExtra(String resposta) {
+        this.respostasExtras.add(resposta);
+    }
+
+    public List<String> getRespostasExtras() {
+        return respostasExtras;
+    }
+
+
 
     @Override
     public String toString() {

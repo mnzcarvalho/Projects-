@@ -7,6 +7,7 @@ public class Endereco {
     private String numero;
     private String cidade;
     private String rua;
+    private String bairro;
 
     public Endereco() {
         this.numero = Constantes.NAO_INFORMADO;
@@ -15,9 +16,10 @@ public class Endereco {
     }
 
     public Endereco(String numero, String cidade, String rua) {
-        this.numero = numero.isEmpty() ? Constantes.NAO_INFORMADO : numero;
-        this.cidade = cidade.isEmpty() ? Constantes.NAO_INFORMADO : cidade;
-        this.rua = rua.isEmpty() ? Constantes.NAO_INFORMADO : rua;
+        this.numero = numero;
+        this.cidade = cidade;
+        this.rua = rua;
+        this.bairro = "";
     }
 
     public String getNumero() {
@@ -44,8 +46,19 @@ public class Endereco {
         this.rua = rua;
     }
 
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
     @Override
     public String toString() {
-        return rua + "," + numero + "," + cidade;
+        if (bairro != null && !bairro.isEmpty()) {
+            return rua + ", " + numero + ", " + bairro;
+        }
+        return rua + ", " + numero + ", " + cidade;
     }
 }

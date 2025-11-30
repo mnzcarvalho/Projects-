@@ -14,12 +14,12 @@ public enum SexoPet {
         return descricao;
     }
 
-    public static SexoPet fromString (String text){
-        for (SexoPet sexo : SexoPet.values()){
-            if (sexo.descricao.equalsIgnoreCase(text)){
+    public static SexoPet fromString(String texto) {
+        for (SexoPet sexo : SexoPet.values()) {
+            if (sexo.descricao.equalsIgnoreCase(texto)) {
                 return sexo;
             }
         }
-        throw new IllegalArgumentException("Sexo do pet inválido: " + text);
+        throw new IllegalArgumentException("Sexo inválido: " + texto);
     }
 }

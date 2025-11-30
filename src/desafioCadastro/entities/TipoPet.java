@@ -14,12 +14,12 @@ public enum TipoPet {
         return descricao;
     }
 
-    public static TipoPet fromString (String text){
-for (TipoPet tipo : TipoPet.values()){
-    if (tipo.descricao.equalsIgnoreCase(text)){
-        return tipo;
-    }
-}
-throw new IllegalArgumentException("Tipo de pet inválido: " + text);
+    public static TipoPet fromString(String texto) {
+        for (TipoPet tipo : TipoPet.values()) {
+            if (tipo.descricao.equalsIgnoreCase(texto)) {
+                return tipo;
+            }
+        }
+        throw new IllegalArgumentException("Tipo inválido: " + texto);
     }
 }
