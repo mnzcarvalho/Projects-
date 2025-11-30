@@ -76,7 +76,7 @@ public class Main {
                         petService.listarTodosPets();
                         break;
                     case 5:
-                        buscarPets(scanner, petService);
+                        petService.buscarPetsComDestaque();
                         break;
                     case 6:
                         System.out.println("Voltando ao menu anterior...");

@@ -7,6 +7,10 @@ import desafioCadastro.entities.TipoPet;
 import desafioCadastro.utils.Constantes;
 import desafioCadastro.utils.ValidacaoUtils;
 
+import java.util.HashMap;
+import java.util.regex.Pattern;
+import java.util.ArrayList;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -15,9 +19,8 @@ import java.text.Normalizer;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import java.util.HashMap;
+
 
 
 
@@ -59,53 +62,93 @@ public class PetService {
 
     public void cadastrarPet() throws IOException {
         System.out.println("\n=== CADASTRO DE NOVO PET ===");
-        FormularioService.exibirFormulario();
+        System.out.println("Responda uma pergunta de cada vez:\n");
 
         List<String> respostas = new ArrayList<>();
         List<String> perguntas = FormularioService.getPerguntas();
 
         try {
-            for (int i = 0; i < perguntas.size(); i++) {
-                System.out.print("Resposta: ");
-                String resposta = scanner.nextLine().trim();
+            // Pergunta 1: Nome completo
+            System.out.println(perguntas.get(0));
+            System.out.print("Resposta: ");
+            String resposta1 = scanner.nextLine().trim();
+            validarNome(resposta1);
+            if (resposta1.isEmpty()) resposta1 = Constantes.NAO_INFORMADO;
+            respostas.add(resposta1);
+            System.out.println("✅ Resposta registrada\n");
 
-                // Validações específicas para cada pergunta
-                switch (i) {
-                    case 0: // Nome
-                        validarNome(resposta);
-                        break;
-                    case 1: // Tipo
-                        validarTipo(resposta);
-                        break;
-                    case 2: // Sexo
-                        validarSexo(resposta);
-                        break;
-                    case 4: // Idade (índice 4 porque começa em 0)
-                        resposta = validarIdade(resposta);
-                        break;
-                    case 5: // Peso
-                        resposta = validarPeso(resposta);
-                        break;
-                    case 6: // Raça
-                        validarRaca(resposta);
-                        break;
-                }
+            // Pergunta 2: Tipo
+            System.out.println(perguntas.get(1));
+            System.out.print("Resposta: ");
+            String resposta2 = scanner.nextLine().trim();
+            validarTipo(resposta2);
+            if (resposta2.isEmpty()) resposta2 = Constantes.NAO_INFORMADO;
+            respostas.add(resposta2);
+            System.out.println("✅ Resposta registrada\n");
 
-                if (resposta.isEmpty()) {
-                    resposta = Constantes.NAO_INFORMADO;
-                }
-                respostas.add(resposta);
-            }
+            // Pergunta 3: Sexo
+            System.out.println(perguntas.get(2));
+            System.out.print("Resposta: ");
+            String resposta3 = scanner.nextLine().trim();
+            validarSexo(resposta3);
+            if (resposta3.isEmpty()) resposta3 = Constantes.NAO_INFORMADO;
+            respostas.add(resposta3);
+            System.out.println("✅ Resposta registrada\n");
+
+            // Pergunta 4: Endereço (apenas para fluxo, detalhes virão depois)
+            System.out.println(perguntas.get(3));
+            System.out.print("Resposta: ");
+            String resposta4 = scanner.nextLine().trim();
+            if (resposta4.isEmpty()) resposta4 = Constantes.NAO_INFORMADO;
+            respostas.add(resposta4);
+            System.out.println("✅ Resposta registrada\n");
+
+            // Pergunta 5: Idade
+            System.out.println(perguntas.get(4));
+            System.out.print("Resposta: ");
+            String resposta5 = scanner.nextLine().trim();
+            resposta5 = validarIdade(resposta5);
+            respostas.add(resposta5);
+            System.out.println("✅ Resposta registrada\n");
+
+            // Pergunta 6: Peso
+            System.out.println(perguntas.get(5));
+            System.out.print("Resposta: ");
+            String resposta6 = scanner.nextLine().trim();
+            resposta6 = validarPeso(resposta6);
+            respostas.add(resposta6);
+            System.out.println("✅ Resposta registrada\n");
+
+            // Pergunta 7: Raça
+            System.out.println(perguntas.get(6));
+            System.out.print("Resposta: ");
+            String resposta7 = scanner.nextLine().trim();
+            validarRaca(resposta7);
+            if (resposta7.isEmpty()) resposta7 = Constantes.NAO_INFORMADO;
+            respostas.add(resposta7);
+            System.out.println("✅ Resposta registrada\n");
+
+            // AGORA perguntar os detalhes do endereço (conforme regra 4 do Passo 3)
+            System.out.println("--- Detalhes do Endereço ---");
+            System.out.print("Número da casa: ");
+            String numero = scanner.nextLine().trim();
+            System.out.print("Cidade: ");
+            String cidade = scanner.nextLine().trim();
+            System.out.print("Rua: ");
+            String rua = scanner.nextLine().trim();
+            System.out.print("Bairro: ");
+            String bairro = scanner.nextLine().trim();
 
             // Criar objeto Pet
-            Pet pet = criarPetFromRespostas(respostas);
+            Pet pet = criarPetFromRespostas(respostas, numero, cidade, rua, bairro);
             salvarPet(pet);
             pets.add(pet);
 
-            System.out.println("Pet cadastrado com sucesso!");
+            System.out.println("\n🎉 Pet cadastrado com sucesso!");
+            System.out.println("📁 Arquivo salvo: " + pet.getNomeArquivo());
 
         } catch (IllegalArgumentException e) {
-            System.out.println("Erro de validação: " + e.getMessage());
+            System.out.println("❌ Erro de validação: " + e.getMessage());
             System.out.println("Cadastro cancelado. Tente novamente.");
         }
     }
@@ -167,21 +210,30 @@ public class PetService {
         }
     }
 
-    private Pet criarPetFromRespostas(List<String> respostas) {
-        System.out.print("Número da casa: ");
-        String numero = scanner.nextLine().trim();
-        System.out.print("Cidade: ");
-        String cidade = scanner.nextLine().trim();
-        System.out.print("Rua: ");
-        String rua = scanner.nextLine().trim();
+    private Pet criarPetFromRespostas(List<String> respostas, String numero, String cidade, String rua, String bairro) {
+        // Usar "NÃO INFORMADO" para campos vazios
+        if (numero.isEmpty()) numero = Constantes.NAO_INFORMADO;
+        if (cidade.isEmpty()) cidade = Constantes.NAO_INFORMADO;
+        if (rua.isEmpty()) rua = Constantes.NAO_INFORMADO;
+        if (bairro.isEmpty()) bairro = Constantes.NAO_INFORMADO;
 
         Endereco endereco = new Endereco(numero, cidade, rua);
+        endereco.setBairro(bairro);
 
+        // Extrair idade e peso das respostas com tratamento seguro
+        double idade = 0.0;
+        double peso = 0.0;
 
-        double idade = respostas.get(4).equals(Constantes.NAO_INFORMADO) ? 0.0 :
-                Double.parseDouble(respostas.get(4));
-        double peso = respostas.get(5).equals(Constantes.NAO_INFORMADO) ? 0.0 :
-                Double.parseDouble(respostas.get(5));
+        try {
+            if (respostas.size() > 4 && !respostas.get(4).equals(Constantes.NAO_INFORMADO)) {
+                idade = Double.parseDouble(respostas.get(4));
+            }
+            if (respostas.size() > 5 && !respostas.get(5).equals(Constantes.NAO_INFORMADO)) {
+                peso = Double.parseDouble(respostas.get(5));
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Erro ao converter número, usando valor padrão 0.0");
+        }
 
         return new Pet(
                 respostas.get(0), // nome
@@ -190,7 +242,7 @@ public class PetService {
                 endereco,
                 idade,
                 peso,
-                respostas.get(6) // raça
+                respostas.size() > 6 ? respostas.get(6) : Constantes.NAO_INFORMADO // raça
         );
     }
 
@@ -340,12 +392,6 @@ public class PetService {
                 .collect(Collectors.toList());
     }
 
-    public void buscarPetsComDestaque() {
-        Map<String, Object> criterios = realizarBuscaParaSelecao();
-        List<Pet> resultados = buscarPets(criterios);
-        exibirResultadosBuscaComDestaque(resultados, criterios);
-    }
-
     private boolean aplicarTodosCriterios(Pet pet, Map<String, Object> criterios) {
         for (Map.Entry<String, Object> entry : criterios.entrySet()) {
             if (!aplicarCriterio(pet, entry.getKey(), entry.getValue())) {
@@ -402,7 +448,23 @@ public class PetService {
         }
 
         // Buscar o pet primeiro
-        Map<String, Object> criterios = realizarBuscaParaSelecao();
+        Map<String, Object> criterios = new HashMap<>();
+        criterios.put("tipo", selecionarTipoBusca());
+
+        System.out.println("Selecione critério de busca:");
+        System.out.println("1. Nome");
+        System.out.println("2. Raça");
+        System.out.print("Opção: ");
+        int opcaoBusca = Integer.parseInt(scanner.nextLine());
+
+        if (opcaoBusca == 1) {
+            System.out.print("Digite o nome ou parte do nome: ");
+            criterios.put("nome", scanner.nextLine());
+        } else {
+            System.out.print("Digite a raça: ");
+            criterios.put("raca", scanner.nextLine());
+        }
+
         List<Pet> resultados = buscarPets(criterios);
 
         if (resultados.isEmpty()) {
@@ -411,7 +473,10 @@ public class PetService {
         }
 
         // Exibir resultados para seleção
-        exibirResultadosParaSelecao(resultados);
+        System.out.println("\n=== PETS ENCONTRADOS ===");
+        for (int i = 0; i < resultados.size(); i++) {
+            System.out.println((i + 1) + ". " + resultados.get(i));
+        }
 
         // Selecionar pet
         System.out.print("\nDigite o número do pet que deseja alterar: ");
@@ -526,7 +591,23 @@ public class PetService {
         }
 
         // Buscar o pet primeiro
-        Map<String, Object> criterios = realizarBuscaParaSelecao();
+        Map<String, Object> criterios = new HashMap<>();
+        criterios.put("tipo", selecionarTipoBusca());
+
+        System.out.println("Selecione critério de busca:");
+        System.out.println("1. Nome");
+        System.out.println("2. Raça");
+        System.out.print("Opção: ");
+        int opcaoBusca = Integer.parseInt(scanner.nextLine());
+
+        if (opcaoBusca == 1) {
+            System.out.print("Digite o nome ou parte do nome: ");
+            criterios.put("nome", scanner.nextLine());
+        } else {
+            System.out.print("Digite a raça: ");
+            criterios.put("raca", scanner.nextLine());
+        }
+
         List<Pet> resultados = buscarPets(criterios);
 
         if (resultados.isEmpty()) {
@@ -535,7 +616,10 @@ public class PetService {
         }
 
         // Exibir resultados para seleção
-        exibirResultadosParaSelecao(resultados);
+        System.out.println("\n=== PETS ENCONTRADOS ===");
+        for (int i = 0; i < resultados.size(); i++) {
+            System.out.println((i + 1) + ". " + resultados.get(i));
+        }
 
         // Selecionar pet
         System.out.print("\nDigite o número do pet que deseja excluir: ");
@@ -549,7 +633,7 @@ public class PetService {
         Pet petSelecionado = resultados.get(escolha - 1);
 
         // Confirmação
-        System.out.print("Tem certeza que deseja excluir " + petSelecionado.getNomeCompleto() + "? (SIM/NÃO): ");
+        System.out.print("Tem certeza que deseja excluir \"" + petSelecionado.getNomeCompleto() + "\"? (SIM/NÃO): ");
         String confirmacao = scanner.nextLine().trim();
 
         if (confirmacao.equalsIgnoreCase("SIM")) {
@@ -615,7 +699,7 @@ public class PetService {
     private static final String ANSI_BOLD = "\u001B[1m";
     private static final String ANSI_RESET = "\u001B[0m";
 
-    public void exibirResultadosBuscaComDestaque(List<Pet> resultados, Map<String, Object> criterios) {
+    private void exibirResultadosBuscaComDestaque(List<Pet> resultados, Map<String, Object> criterios) {
         if (resultados.isEmpty()) {
             System.out.println("Nenhum pet encontrado com os critérios informados.");
             return;
@@ -630,6 +714,7 @@ public class PetService {
         System.out.println("============================\n");
     }
 
+
     private String formatarLinhaComDestaque(Pet pet, Map<String, Object> criterios) {
         StringBuilder sb = new StringBuilder();
 
@@ -641,7 +726,7 @@ public class PetService {
         sb.append(pet.getTipo().getDescricao()).append(" - ");
         sb.append(pet.getSexo().getDescricao()).append(" - ");
 
-        // Endereço
+        // Endereço com destaque
         String endereco = aplicarDestaque(pet.getEndereco().toString(), criterios, "endereco");
         sb.append(endereco).append(" - ");
 
@@ -664,7 +749,7 @@ public class PetService {
         Object criterio = criterios.get(chaveCriterio);
         if (criterio instanceof String) {
             String termo = (String) criterio;
-            if (!termo.isEmpty() && contemTermoIgnorandoCase(texto, termo)) {
+            if (!termo.isEmpty()) {
                 // Aplicar destaque ao termo encontrado (case-insensitive)
                 String regex = "(?i)(" + Pattern.quote(termo) + ")";
                 return texto.replaceAll(regex, ANSI_BOLD + "$1" + ANSI_RESET);
@@ -672,6 +757,115 @@ public class PetService {
         }
         return texto;
     }
+
+    public void buscarPetsComDestaque() {
+        System.out.println("\n=== BUSCA AVANÇADA DE PETS ===");
+
+        Map<String, Object> criterios = new HashMap<>();
+
+        // Critério obrigatório: Tipo
+        criterios.put("tipo", selecionarTipoBusca());
+
+        // Selecionar critérios adicionais
+        List<String> criteriosSelecionados = selecionarCriteriosAdicionais();
+
+        for (String criterio : criteriosSelecionados) {
+            switch (criterio) {
+                case "nome":
+                    System.out.print("Digite o nome ou parte do nome: ");
+                    criterios.put("nome", scanner.nextLine());
+                    break;
+                case "sexo":
+                    criterios.put("sexo", selecionarSexoBusca());
+                    break;
+                case "idade":
+                    System.out.print("Digite a idade: ");
+                    criterios.put("idade", Double.parseDouble(scanner.nextLine()));
+                    break;
+                case "peso":
+                    System.out.print("Digite o peso: ");
+                    criterios.put("peso", Double.parseDouble(scanner.nextLine()));
+                    break;
+                case "raca":
+                    System.out.print("Digite a raça: ");
+                    criterios.put("raca", scanner.nextLine());
+                    break;
+                case "endereco":
+                    System.out.print("Digite parte do endereço: ");
+                    criterios.put("endereco", scanner.nextLine());
+                    break;
+                case "data":
+                    System.out.print("Digite o mês (1-12): ");
+                    criterios.put("dataMes", Integer.parseInt(scanner.nextLine()));
+                    System.out.print("Digite o ano: ");
+                    criterios.put("dataAno", Integer.parseInt(scanner.nextLine()));
+                    break;
+            }
+        }
+
+        List<Pet> resultados = buscarPets(criterios);
+        exibirResultadosBuscaComDestaque(resultados, criterios);
+    }
+
+    private TipoPet selecionarTipoBusca() {
+        System.out.println("Selecione o tipo:");
+        System.out.println("1. Cachorro");
+        System.out.println("2. Gato");
+        System.out.print("Opção: ");
+        int opcao = Integer.parseInt(scanner.nextLine());
+        return (opcao == 1) ? TipoPet.CACHORRO : TipoPet.GATO;
+    }
+
+    private SexoPet selecionarSexoBusca() {
+        System.out.println("Selecione o sexo:");
+        System.out.println("1. Macho");
+        System.out.println("2. Femea");
+        System.out.print("Opção: ");
+        int opcao = Integer.parseInt(scanner.nextLine());
+        return (opcao == 1) ? SexoPet.MACHO : SexoPet.FEMEA;
+    }
+
+    private List<String> selecionarCriteriosAdicionais() {
+        List<String> criterios = new ArrayList<>();
+
+        System.out.println("\nSelecione até 2 critérios adicionais:");
+        System.out.println("1. Nome");
+        System.out.println("2. Sexo");
+        System.out.println("3. Idade");
+        System.out.println("4. Peso");
+        System.out.println("5. Raça");
+        System.out.println("6. Endereço");
+        System.out.println("7. Data de cadastro");
+        System.out.println("0. Buscar apenas por tipo");
+
+        int opcao1 = Integer.parseInt(scanner.nextLine());
+        if (opcao1 != 0) {
+            criterios.add(obterCriterioPorOpcao(opcao1));
+
+            System.out.println("Deseja adicionar um segundo critério? (S/N)");
+            if (scanner.nextLine().equalsIgnoreCase("S")) {
+                System.out.println("Selecione o segundo critério:");
+                int opcao2 = Integer.parseInt(scanner.nextLine());
+                criterios.add(obterCriterioPorOpcao(opcao2));
+            }
+        }
+
+        return criterios;
+    }
+
+    private String obterCriterioPorOpcao(int opcao) {
+        switch (opcao) {
+            case 1: return "nome";
+            case 2: return "sexo";
+            case 3: return "idade";
+            case 4: return "peso";
+            case 5: return "raca";
+            case 6: return "endereco";
+            case 7: return "data";
+            default: return "";
+        }
+    }
+
 
 
 }

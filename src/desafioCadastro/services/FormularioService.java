@@ -14,7 +14,11 @@ public class FormularioService {
     }
 
     public static List<String> getPerguntas() throws IOException {
-        return ArquivoService.lerArquivo(Constantes.FORMULARIO_FILE);
+        List<String> perguntas = ArquivoService.lerArquivo(Constantes.FORMULARIO_FILE);
+        if (perguntas.isEmpty()) {
+            throw new IOException("Arquivo de formulário está vazio ou não encontrado: " + Constantes.FORMULARIO_FILE);
+        }
+        return perguntas;
     }
 
     public static void adicionarPergunta(String novaPergunta) throws IOException {
