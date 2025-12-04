@@ -24,7 +24,7 @@ Desenvolver um sistema que:
 br.com.cityflow
 │
 ├── app
-│ └── Main.java
+│ └── desafioCadastroDois.Main.java
 │
 ├── model
 │ ├── Veiculo.java

@@ -4,7 +4,7 @@ eternalidle/
 │   ├── 📁 main/
 │   │   ├── 📁 java/
 │   │   │   └── 📁 eternalidle/        # 🔥 NOVO PACKAGE JAVAFX
-│   │   │       ├── EternalIdleApp.java              # Main JavaFX Application
+│   │   │       ├── EternalIdleApp.java              # desafioCadastroDois.Main JavaFX Application
 │   │   │       ├── 📁 controller/                   # Controladores JavaFX
 │   │   │       │   ├── GameController.java          # Controller principal
 │   │   │       │   ├── InventoryController.java     # Controller inventário
