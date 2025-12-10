@@ -1,4 +1,4 @@
-package desafioCadastroDois.service;
+package desafioCadastro.service;
 
 import java.io.IOException;
 import java.nio.file.Files;

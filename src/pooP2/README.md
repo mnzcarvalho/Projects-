@@ -2,7 +2,7 @@
 
 💡 Conceitos Implementados
 1. 📊 Estruturas Lógicas
-Onde: Loja.java (métodos de busca), desafioCadastroDois.Main.java (menu switch)
+Onde: Loja.java (métodos de busca), desafioCadastro.Main.java (menu switch)
 
 Implementação: Loops for, while, switch, if/else em validações e buscas
 
@@ -44,7 +44,7 @@ Onde: Loja.java e todas as classes do pacote model
 Implementação: Serializable, salvar/carregar em loja.dat
 
 7. ⚠️ Exception + Entrada/Saída
-Onde: Pacote exception e desafioCadastroDois.Main.java
+Onde: Pacote exception e desafioCadastro.Main.java
 
 Implementação: 4 exceptions customizadas, try/catch, leitura/gravação de arquivos
 
